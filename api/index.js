@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const path = require('path');
 
 dotenv.config();
 
@@ -11,9 +10,6 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
-
-// Serve frontend from /public
-app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // ── Lazy-load heavy services (catches missing .env early) ───
 let googleSheets;
@@ -26,12 +22,10 @@ try {
 
 // ── Routes ──────────────────────────────────────────────────
 
-// Health check — open http://localhost:3000/api/health to confirm server is up
 app.get('/api/health', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Save Consultation
 app.post('/api/save-consultation', async (req, res) => {
     console.log('📥 /api/save-consultation called');
     console.log('   fullName:', req.body?.fullName);
@@ -48,7 +42,6 @@ app.post('/api/save-consultation', async (req, res) => {
         console.log('💾 Save result:', result.success ? '✅ Success' : '❌ Failed', result.message || '');
 
         if (result.success) {
-            // Optional: WhatsApp notification via Gallabox
             if (process.env.GALLABOX_API_KEY && formData.whatsapp) {
                 try {
                     const axios = require('axios');
@@ -68,7 +61,6 @@ app.post('/api/save-consultation', async (req, res) => {
                     });
                     console.log('📱 WhatsApp notification sent');
                 } catch (err) {
-                    // Don't fail the whole request if WhatsApp fails
                     console.error('⚠️  WhatsApp notification failed (non-fatal):', err.response?.data || err.message);
                 }
             }
@@ -90,7 +82,6 @@ app.post('/api/save-consultation', async (req, res) => {
     }
 });
 
-// Client Login (kept for compatibility)
 app.post('/api/client-login', async (req, res) => {
     const { phone } = req.body;
     if (!googleSheets) return res.status(500).json({ success: false, message: 'Service unavailable' });
@@ -128,12 +119,7 @@ app.post('/api/client-login', async (req, res) => {
     }
 });
 
-// Fallback — serve index.html for any unknown route
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-});
-
-// ── Start ────────────────────────────────────────────────────
+// ── Start (local dev only) ───────────────────────────────────
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
