@@ -2,7 +2,7 @@
   "name": "hair-consultation-form",
   "version": "1.0.0",
   "description": "Hair Consultation Form for American Hairline",
-  "main": "api/index.js",
+  "main": "api/server.js",
   "type": "commonjs",
   "dependencies": {
     "express": "^4.18.2",
@@ -17,7 +17,7 @@
     "nodemon": "^3.0.3"
   },
   "scripts": {
-    "start": "node api/index.js",
-    "dev": "nodemon api/index.js"
+    "start": "node api/server.js",
+    "dev": "nodemon api/server.js"
   }
 }
