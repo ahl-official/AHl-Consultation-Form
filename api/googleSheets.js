@@ -25,16 +25,12 @@ const SPREADSHEET_ID = process.env.GOOGLE_SHEETS_ID?.trim();
 // HELPER FUNCTIONS
 // ============================================
 
-/**
- * Get all rows from a sheet
- */
 async function getSheetData(sheetName) {
     try {
         const response = await sheets.spreadsheets.values.get({
             spreadsheetId: SPREADSHEET_ID,
-            range: `${sheetName}!A:AZ`, // Get columns A through AZ
+            range: `${sheetName}!A:AZ`,
         });
-
         return response.data.values || [];
     } catch (error) {
         console.error(`Error getting sheet data for ${sheetName}:`, error);
@@ -42,12 +38,8 @@ async function getSheetData(sheetName) {
     }
 }
 
-/**
- * Create PreConsultation sheet with headers
- */
 async function createPreConsultationSheet() {
     try {
-        // 1. Add new sheet
         await sheets.spreadsheets.batchUpdate({
             spreadsheetId: SPREADSHEET_ID,
             requestBody: {
@@ -55,16 +47,13 @@ async function createPreConsultationSheet() {
                     addSheet: {
                         properties: {
                             title: 'PreConsultation',
-                            gridProperties: {
-                                frozenRowCount: 1
-                            }
+                            gridProperties: { frozenRowCount: 1 }
                         }
                     }
                 }]
             }
         });
 
-        // 2. Set headers
         const headers = [
             "Timestamp", "Lead ID", "Full Name", "Mobile No", "City", "Town", "Date of Birth",
             "Source", "Consultation Type", "Existing Wearer", "Wearing Duration",
@@ -83,13 +72,9 @@ async function createPreConsultationSheet() {
             spreadsheetId: SPREADSHEET_ID,
             range: 'PreConsultation!A1',
             valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [headers]
-            }
+            requestBody: { values: [headers] }
         });
 
-        // 3. Format headers (Green background, white text, bold)
-        // Need sheetId for formatting. Get it from spreadsheet metadata
         const ss = await sheets.spreadsheets.get({ spreadsheetId: SPREADSHEET_ID });
         const sheet = ss.data.sheets.find(s => s.properties.title === 'PreConsultation');
         const sheetId = sheet.properties.sheetId;
@@ -99,14 +84,10 @@ async function createPreConsultationSheet() {
             requestBody: {
                 requests: [{
                     repeatCell: {
-                        range: {
-                            sheetId: sheetId,
-                            startRowIndex: 0,
-                            endRowIndex: 1
-                        },
+                        range: { sheetId: sheetId, startRowIndex: 0, endRowIndex: 1 },
                         cell: {
                             userEnteredFormat: {
-                                backgroundColor: { red: 0.3, green: 0.69, blue: 0.31 }, // #4CAF50
+                                backgroundColor: { red: 0.3, green: 0.69, blue: 0.31 },
                                 textFormat: {
                                     foregroundColor: { red: 1, green: 1, blue: 1 },
                                     bold: true
@@ -127,9 +108,6 @@ async function createPreConsultationSheet() {
     }
 }
 
-/**
- * Helper to convert column index to letter (0 -> A, 26 -> AA)
- */
 function getColLetter(n) {
     let s = "";
     while (n >= 0) {
@@ -139,21 +117,15 @@ function getColLetter(n) {
     return s;
 }
 
-/**
- * Update a specific cell
- */
 async function updateCell(sheetName, rowIndex, colIndex, value) {
     try {
         const colLetter = getColLetter(colIndex);
         const range = `${sheetName}!${colLetter}${rowIndex}`;
-
         await sheets.spreadsheets.values.update({
             spreadsheetId: SPREADSHEET_ID,
             range: range,
             valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [[value]],
-            },
+            requestBody: { values: [[value]] },
         });
         return true;
     } catch (error) {
@@ -162,20 +134,12 @@ async function updateCell(sheetName, rowIndex, colIndex, value) {
     }
 }
 
-/**
- * Ensure specific columns exist in the header row
- */
 async function ensureColumnsExist(sheetName, currentHeaders, requiredColumns) {
     try {
         const missingColumns = requiredColumns.filter(col => !currentHeaders.includes(col));
-
-        if (missingColumns.length === 0) {
-            return currentHeaders;
-        }
+        if (missingColumns.length === 0) return currentHeaders;
 
         console.log(`Adding missing columns to ${sheetName}:`, missingColumns);
-
-        // Append missing columns to the header row
         const startColIndex = currentHeaders.length;
         const startLetter = getColLetter(startColIndex);
 
@@ -183,31 +147,23 @@ async function ensureColumnsExist(sheetName, currentHeaders, requiredColumns) {
             spreadsheetId: SPREADSHEET_ID,
             range: `${sheetName}!${startLetter}1`,
             valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [missingColumns]
-            }
+            requestBody: { values: [missingColumns] }
         });
 
         return [...currentHeaders, ...missingColumns];
-
     } catch (error) {
         console.error('Error ensuring columns exist:', error);
-        return currentHeaders; // Return original on error to try to proceed
+        return currentHeaders;
     }
 }
 
-/**
- * Append a row to a sheet
- */
 async function appendRow(sheetName, values) {
     try {
         await sheets.spreadsheets.values.append({
             spreadsheetId: SPREADSHEET_ID,
             range: `${sheetName}!A:AZ`,
             valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [values],
-            },
+            requestBody: { values: [values] },
         });
         return true;
     } catch (error) {
@@ -216,18 +172,13 @@ async function appendRow(sheetName, values) {
     }
 }
 
-/**
- * Update a specific row
- */
 async function updateRow(sheetName, rowIndex, values) {
     try {
         await sheets.spreadsheets.values.update({
             spreadsheetId: SPREADSHEET_ID,
             range: `${sheetName}!A${rowIndex}:AZ${rowIndex}`,
             valueInputOption: 'USER_ENTERED',
-            requestBody: {
-                values: [values],
-            },
+            requestBody: { values: [values] },
         });
         return true;
     } catch (error) {
@@ -236,33 +187,21 @@ async function updateRow(sheetName, rowIndex, values) {
     }
 }
 
-/**
- * Clean phone number for comparison
- */
 function cleanPhone(phone) {
     return String(phone || '').replace(/\D/g, '');
 }
 
-/**
- * Compare two phone numbers, matching last 10 digits if lengths differ
- */
 function matchPhones(p1, p2) {
     const cp1 = cleanPhone(p1);
     const cp2 = cleanPhone(p2);
     if (!cp1 || !cp2) return false;
     if (cp1 === cp2) return true;
-
-    // Match last 10 digits (common for Indian numbers with/without 91)
     if (cp1.length >= 10 && cp2.length >= 10) {
         return cp1.slice(-10) === cp2.slice(-10);
     }
-
     return false;
 }
 
-/**
- * Extract data from row using headers
- */
 function extractData(headers, row, fieldMap) {
     const data = {};
     for (const [key, colName] of Object.entries(fieldMap)) {
@@ -275,43 +214,63 @@ function extractData(headers, row, fieldMap) {
 }
 
 // ============================================
+// TRIGGER APPS SCRIPT WEBHOOK
+// Called after saving a row — Apps Script will:
+//   1. Find the row by phone number
+//   2. Look up Consultation Type from CRM_Link_Dispatches (only if blank)
+//   3. Generate PDF
+//   4. Send WhatsApp to consultants
+// ============================================
+async function triggerAppsScriptProcessing(phone) {
+    try {
+        const webhookUrl = process.env.APPS_SCRIPT_WEBHOOK_URL;
+        if (!webhookUrl) {
+            console.log('⚠️ APPS_SCRIPT_WEBHOOK_URL not set in .env — skipping PDF trigger');
+            return;
+        }
+
+        const normalizedPhone = String(phone || '').replace(/\D/g, '');
+        if (!normalizedPhone) {
+            console.log('⚠️ No phone number for webhook trigger');
+            return;
+        }
+
+        const url = `${webhookUrl}?action=processNewRow&phone=${encodeURIComponent(normalizedPhone)}`;
+        console.log('🔔 Triggering Apps Script for phone:', normalizedPhone);
+
+        const response = await fetch(url);
+        const text = await response.text();
+        console.log('✅ Apps Script response:', text);
+
+    } catch (error) {
+        // Non-blocking — row is already saved, webhook failure is not critical
+        console.error('⚠️ Apps Script webhook error (non-fatal):', error.message);
+    }
+}
+
+// ============================================
 // CHECK PRECONSULTATION SHEET
 // ============================================
 async function checkPreConsultation(phone) {
     try {
         const data = await getSheetData('PreConsultation');
-
-        if (!data || data.length < 2) {
-            return { found: false };
-        }
+        if (!data || data.length < 2) return { found: false };
 
         const headers = data[0];
         const phoneColIndex = headers.indexOf('Mobile No');
         const leadIdIndex = headers.indexOf('Lead ID');
-
-        if (phoneColIndex === -1) {
-            return { found: false };
-        }
+        if (phoneColIndex === -1) return { found: false };
 
         for (let i = 1; i < data.length; i++) {
             const rowPhone = data[i][phoneColIndex];
-
             if (matchPhones(rowPhone, phone)) {
                 const clientData = extractClientData(headers, data[i]);
                 const completeness = calculateProfileCompleteness(clientData);
                 const leadId = leadIdIndex >= 0 ? String(data[i][leadIdIndex] || '') : '';
-
-                return {
-                    found: true,
-                    data: clientData,
-                    completeness: completeness,
-                    leadId: leadId
-                };
+                return { found: true, data: clientData, completeness, leadId };
             }
         }
-
         return { found: false };
-
     } catch (error) {
         console.error('Error checking PreConsultation:', error);
         return { found: false };
@@ -324,39 +283,24 @@ async function checkPreConsultation(phone) {
 async function checkLeaddatabase(phone) {
     try {
         const data = await getSheetData('Leaddatabase');
-
-        if (!data || data.length < 2) {
-            return { found: false };
-        }
+        if (!data || data.length < 2) return { found: false };
 
         const headers = data[0];
         const phoneColIndex = headers.indexOf('Mobile No');
         const leadIdIndex = headers.indexOf('Lead ID');
         const consultationTypeIndex = headers.indexOf('Consultation Type');
-
-        if (phoneColIndex === -1) {
-            return { found: false };
-        }
+        if (phoneColIndex === -1) return { found: false };
 
         for (let i = 1; i < data.length; i++) {
             const rowPhone = data[i][phoneColIndex];
-
             if (matchPhones(rowPhone, phone)) {
                 const leadData = extractLeadData(headers, data[i]);
                 const consultationType = consultationTypeIndex >= 0 ? String(data[i][consultationTypeIndex] || '') : '';
                 const leadId = leadIdIndex >= 0 ? String(data[i][leadIdIndex] || '') : '';
-
-                return {
-                    found: true,
-                    data: leadData,
-                    consultationType: consultationType,
-                    leadId: leadId
-                };
+                return { found: true, data: leadData, consultationType, leadId };
             }
         }
-
         return { found: false };
-
     } catch (error) {
         console.error('Error checking Leaddatabase:', error);
         return { found: false };
@@ -368,42 +312,22 @@ async function checkLeaddatabase(phone) {
 // ============================================
 function extractClientData(headers, row) {
     const fieldMap = {
-        fullName: 'Full Name',
-        whatsapp: 'Mobile No',
-        city: 'City',
-        town: 'Town',
-        dob: 'Date of Birth',
-        source: 'Source',
-        consultationType: 'Consultation Type',
-        existingWearer: 'Existing Wearer',
-        wearingDuration: 'Wearing Duration',
-        patchHappy: 'Current Patch Satisfaction',
-        improvementsNeeded: 'Improvements Needed',
-        currentProvider: 'Current Provider',
-        currentCost: 'Current Cost',
-        hairFallSince: 'Hair Fall Since',
-        transplant: 'Done Hair Transplant Before',
-        considering: 'Considering Hair Patch Since',
-        bike: 'Rides Bike Often',
-        interested: 'Interested In',
-        systemType: 'System Type',
-        density: 'Density',
-        timeline: 'Timeline',
-        budget: 'Budget Range',
-        notes: 'Session Notes',
-        naturalDensity: 'Natural Hair Density',
-        attachment: 'Preferred Attachment Method',
-        photoTopView: 'Photo Top View',
-        photoFrontView: 'Photo Front View',
-        photoLeftSide: 'Photo Left Side',
-        photoRightSide: 'Photo Right Side',
-        photoBackView: 'Photo Back View',
-        photoOther1: 'Photo Other 1',
-        photoOther2: 'Photo Other 2',
-        photoOther3: 'Photo Other 3',
+        fullName: 'Full Name', whatsapp: 'Mobile No', city: 'City', town: 'Town',
+        dob: 'Date of Birth', source: 'Source', consultationType: 'Consultation Type',
+        existingWearer: 'Existing Wearer', wearingDuration: 'Wearing Duration',
+        patchHappy: 'Current Patch Satisfaction', improvementsNeeded: 'Improvements Needed',
+        currentProvider: 'Current Provider', currentCost: 'Current Cost',
+        hairFallSince: 'Hair Fall Since', transplant: 'Done Hair Transplant Before',
+        considering: 'Considering Hair Patch Since', bike: 'Rides Bike Often',
+        interested: 'Interested In', systemType: 'System Type', density: 'Density',
+        timeline: 'Timeline', budget: 'Budget Range', notes: 'Session Notes',
+        naturalDensity: 'Natural Hair Density', attachment: 'Preferred Attachment Method',
+        photoTopView: 'Photo Top View', photoFrontView: 'Photo Front View',
+        photoLeftSide: 'Photo Left Side', photoRightSide: 'Photo Right Side',
+        photoBackView: 'Photo Back View', photoOther1: 'Photo Other 1',
+        photoOther2: 'Photo Other 2', photoOther3: 'Photo Other 3',
         lastUpdated: 'Last Updated'
     };
-
     return extractData(headers, row, fieldMap);
 }
 
@@ -412,15 +336,9 @@ function extractClientData(headers, row) {
 // ============================================
 function extractLeadData(headers, row) {
     const fieldMap = {
-        fullName: 'Full Name',
-        whatsapp: 'Mobile No',
-        city: 'City',
-        town: 'Town',
-        dob: 'Date of Birth',
-        source: 'Source',
-        consultationType: 'Consultation Type'
+        fullName: 'Full Name', whatsapp: 'Mobile No', city: 'City', town: 'Town',
+        dob: 'Date of Birth', source: 'Source', consultationType: 'Consultation Type'
     };
-
     return extractData(headers, row, fieldMap);
 }
 
@@ -435,39 +353,18 @@ function calculateProfileCompleteness(data) {
         : ['hairFallSince', 'considering'];
 
     const allFields = [...requiredFields, ...optionalFields, ...conditionalFields];
-
     let filledCount = 0;
     let missingRequired = [];
 
     requiredFields.forEach(field => {
-        if (data[field] && data[field] !== '') {
-            filledCount++;
-        } else {
-            missingRequired.push(field);
-        }
+        if (data[field] && data[field] !== '') filledCount++;
+        else missingRequired.push(field);
     });
-
-    optionalFields.forEach(field => {
-        if (data[field] && data[field] !== '') {
-            filledCount++;
-        }
-    });
-
-    conditionalFields.forEach(field => {
-        if (data[field] && data[field] !== '') {
-            filledCount++;
-        }
-    });
+    optionalFields.forEach(field => { if (data[field] && data[field] !== '') filledCount++; });
+    conditionalFields.forEach(field => { if (data[field] && data[field] !== '') filledCount++; });
 
     const percentage = Math.round((filledCount / allFields.length) * 100);
-
-    return {
-        percentage: percentage,
-        isComplete: percentage === 100,
-        missingRequired: missingRequired,
-        filledCount: filledCount,
-        totalCount: allFields.length
-    };
+    return { percentage, isComplete: percentage === 100, missingRequired, filledCount, totalCount: allFields.length };
 }
 
 // ============================================
@@ -477,7 +374,6 @@ async function saveConsultationData(formData) {
     try {
         let data = await getSheetData('PreConsultation');
 
-        // If sheet doesn't exist or is empty, create it
         if (!data || data.length === 0) {
             console.log('PreConsultation sheet not found or empty, creating...');
             await createPreConsultationSheet();
@@ -489,21 +385,16 @@ async function saveConsultationData(formData) {
 
         let headers = data[0];
 
-        // Ensure required columns exist
         const requiredColumns = [
             "Photo Top View", "Photo Front View", "Photo Left Side",
             "Photo Right Side", "Photo Back View", "Photo Other 1",
             "Photo Other 2", "Photo Other 3", "Consultation Type",
             "Video Consultation", "Consultation Source"
         ];
-
         headers = await ensureColumnsExist('PreConsultation', headers, requiredColumns);
 
         const phoneColIndex = headers.indexOf('Mobile No');
-
-        if (phoneColIndex === -1) {
-            throw new Error('Mobile No column not found');
-        }
+        if (phoneColIndex === -1) throw new Error('Mobile No column not found');
 
         let rowIndex = -1;
         let existingRow = null;
@@ -511,7 +402,7 @@ async function saveConsultationData(formData) {
         for (let i = 1; i < data.length; i++) {
             const rowPhone = data[i][phoneColIndex];
             if (matchPhones(rowPhone, formData.phone || formData.whatsapp)) {
-                rowIndex = i + 1; // +1 because sheets are 1-indexed
+                rowIndex = i + 1;
                 existingRow = data[i];
                 break;
             }
@@ -522,16 +413,10 @@ async function saveConsultationData(formData) {
             ? data[rowIndex - 1][headers.indexOf('Lead ID')] || `AH${Date.now().toString().slice(-8)}`
             : `AH${Date.now().toString().slice(-8)}`;
 
-        // Upload images to Google Drive
         let photoUrls = {
-            'Top View': '',
-            'Front View': '',
-            'Left Side': '',
-            'Right Side': '',
-            'Back View': '',
-            'Other 1': '',
-            'Other 2': '',
-            'Other 3': ''
+            'Top View': '', 'Front View': '', 'Left Side': '',
+            'Right Side': '', 'Back View': '', 'Other 1': '',
+            'Other 2': '', 'Other 3': ''
         };
 
         if (formData.images && formData.images.length > 0) {
@@ -542,26 +427,35 @@ async function saveConsultationData(formData) {
             );
         }
 
-        // Prepare row data using the potentially updated headers
         const rowData = prepareRowData(headers, formData, timestamp, leadId, photoUrls, existingRow);
 
-        // Save to sheet
         if (rowIndex !== -1) {
             await updateRow('PreConsultation', rowIndex, rowData);
         } else {
             await appendRow('PreConsultation', rowData);
         }
 
+        // ✅ Trigger Apps Script to:
+        //    - Look up Consultation Type from CRM_Link_Dispatches by phone (only if blank)
+        //    - Generate PDF
+        //    - Send WhatsApp to consultants
+        const phoneForWebhook = formData.whatsapp || formData.phone || '';
+        if (phoneForWebhook) {
+            // Wait 1.5s to ensure the row is fully committed before Apps Script reads it
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            await triggerAppsScriptProcessing(phoneForWebhook);
+        }
+
         const returnData = {
             ...formData,
-            photoTopView: photoUrls['Top View'],
+            photoTopView:   photoUrls['Top View'],
             photoFrontView: photoUrls['Front View'],
-            photoLeftSide: photoUrls['Left Side'],
+            photoLeftSide:  photoUrls['Left Side'],
             photoRightSide: photoUrls['Right Side'],
-            photoBackView: photoUrls['Back View'],
-            photoOther1: photoUrls['Other 1'],
-            photoOther2: photoUrls['Other 2'],
-            photoOther3: photoUrls['Other 3']
+            photoBackView:  photoUrls['Back View'],
+            photoOther1:    photoUrls['Other 1'],
+            photoOther2:    photoUrls['Other 2'],
+            photoOther3:    photoUrls['Other 3']
         };
 
         const completeness = calculateProfileCompleteness(returnData);
@@ -569,18 +463,15 @@ async function saveConsultationData(formData) {
         return {
             success: true,
             message: 'Profile saved successfully',
-            leadId: leadId,
-            completeness: completeness,
+            leadId,
+            completeness,
             imageCount: formData.images?.length || 0,
             data: returnData
         };
 
     } catch (error) {
         console.error('Error in saveConsultationData:', error);
-        return {
-            success: false,
-            message: 'Error: ' + error.message
-        };
+        return { success: false, message: 'Error: ' + error.message };
     }
 }
 
@@ -617,7 +508,15 @@ function prepareRowData(headers, formData, timestamp, leadId, photoUrls, existin
                 rowData.push(formData.source || '');
                 break;
             case 'Consultation Type':
-                rowData.push(formData.consultationType || '');
+                // ✅ OTP app sends consultationType (e.g. 'In-person')
+                // ✅ Non-OTP/internal app sends nothing → stays blank
+                //    Apps Script will fill it from CRM_Link_Dispatches by phone
+                // ✅ Never overwrite if already set in the sheet
+                if (existingRow && existingRow[index] !== undefined && existingRow[index] !== '') {
+                    rowData.push(existingRow[index]);
+                } else {
+                    rowData.push(formData.consultationType || '');
+                }
                 break;
             case 'Existing Wearer':
                 rowData.push(formData.existingWearer || '');
@@ -674,40 +573,40 @@ function prepareRowData(headers, formData, timestamp, leadId, photoUrls, existin
                 rowData.push(formData.attachment || '');
                 break;
             case 'Photo Top View':
-                rowData.push(photoUrls['Top View']);
+                rowData.push(photoUrls['Top View'] || '');
                 break;
             case 'Photo Front View':
-                rowData.push(photoUrls['Front View']);
+                rowData.push(photoUrls['Front View'] || '');
                 break;
             case 'Photo Left Side':
-                rowData.push(photoUrls['Left Side']);
+                rowData.push(photoUrls['Left Side'] || '');
                 break;
             case 'Photo Right Side':
-                rowData.push(photoUrls['Right Side']);
+                rowData.push(photoUrls['Right Side'] || '');
                 break;
             case 'Photo Back View':
-                rowData.push(photoUrls['Back View']);
+                rowData.push(photoUrls['Back View'] || '');
                 break;
             case 'Photo Other 1':
-                rowData.push(photoUrls['Other 1']);
+                rowData.push(photoUrls['Other 1'] || '');
                 break;
             case 'Photo Other 2':
-                rowData.push(photoUrls['Other 2']);
+                rowData.push(photoUrls['Other 2'] || '');
                 break;
             case 'Photo Other 3':
-                rowData.push(photoUrls['Other 3']);
+                rowData.push(photoUrls['Other 3'] || '');
                 break;
             case 'Completed By':
-                rowData.push('Client Self-Service');
+                rowData.push(formData.completedBy || 'Client Self-Service');
                 break;
             case 'Last Updated':
                 rowData.push(timestamp);
                 break;
             case 'Consultation Source':
-                rowData.push('');
+                rowData.push(formData.consultationSource || '');
                 break;
             default:
-                // Try to preserve existing value if available (e.g. Video Consultation)
+                // Preserve existing value (e.g. Video Consultation, PDF Report)
                 if (existingRow && existingRow[index] !== undefined) {
                     rowData.push(existingRow[index]);
                 } else {
@@ -719,10 +618,9 @@ function prepareRowData(headers, formData, timestamp, leadId, photoUrls, existin
     return rowData;
 }
 
-
-/**
- * Create VideoConsultationResponses sheet with headers
- */
+// ============================================
+// CREATE VIDEO CONSULTATION RESPONSES SHEET
+// ============================================
 async function createVideoConsultationResponsesSheet() {
     try {
         await sheets.spreadsheets.batchUpdate({
@@ -740,7 +638,6 @@ async function createVideoConsultationResponsesSheet() {
         });
 
         const headers = ["Timestamp", "Lead ID", "Phone", "Client Name", "Response", "Date"];
-
         await sheets.spreadsheets.values.update({
             spreadsheetId: SPREADSHEET_ID,
             range: 'VideoConsultationResponses!A1',
@@ -787,66 +684,40 @@ async function saveVideoConsultationResponse(leadId, phone, clientName, response
         const timestamp = dateObj.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }).replace(',', '');
         const dateStr = dateObj.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata' });
 
-        const rowData = [
-            timestamp,
-            leadId || '',
-            phone || '',
-            clientName || '',
-            response || 'Not Interested',
-            dateStr
-        ];
+        const rowData = [timestamp, leadId || '', phone || '', clientName || '', response || 'Not Interested', dateStr];
 
-        // Ensure VideoConsultationResponses sheet exists
         try {
             await appendRow('VideoConsultationResponses', rowData);
         } catch (error) {
-            console.log('VideoConsultationResponses sheet might be missing, attempting creation...');
+            console.log('VideoConsultationResponses sheet missing, creating...');
             await createVideoConsultationResponsesSheet();
             await appendRow('VideoConsultationResponses', rowData);
         }
 
-        // Also update PreConsultation sheet
         let data = await getSheetData('PreConsultation');
-        if (!data || data.length === 0) {
-            return { success: false, message: 'PreConsultation sheet not found' };
-        }
+        if (!data || data.length === 0) return { success: false, message: 'PreConsultation sheet not found' };
 
         let headers = data[0];
-
-        // Ensure Video Consultation column exists
         headers = await ensureColumnsExist('PreConsultation', headers, ['Video Consultation']);
 
-        const leadIdIndex = headers.indexOf('Lead ID');
+        const leadIdIndex   = headers.indexOf('Lead ID');
         const videoColIndex = headers.indexOf('Video Consultation');
-
-        if (videoColIndex === -1) {
-            // Should not happen after ensureColumnsExist
-            throw new Error('Failed to ensure Video Consultation column');
-        }
+        if (videoColIndex === -1) throw new Error('Failed to ensure Video Consultation column');
 
         for (let i = 1; i < data.length; i++) {
             if (String(data[i][leadIdIndex]) === String(leadId)) {
-                // Update the specific cell for Video Consultation response
                 await updateCell('PreConsultation', i + 1, videoColIndex, response);
                 break;
             }
         }
 
-        return {
-            success: true,
-            message: 'Response saved successfully'
-        };
+        return { success: true, message: 'Response saved successfully' };
 
     } catch (error) {
         console.error('Error saving video consultation response:', error);
-        return {
-            success: false,
-            message: 'Error: ' + error.message
-        };
+        return { success: false, message: 'Error: ' + error.message };
     }
 }
-
-
 
 // ============================================
 // EXPORTS
