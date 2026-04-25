@@ -42,16 +42,16 @@ async function createPreConsultationSheet() {
         });
 
         const headers = [
-            "Timestamp","Lead ID","Full Name","Mobile No","City","Town","Date of Birth",
-            "Source","Consultation Type","Existing Wearer","Wearing Duration",
-            "Current Patch Satisfaction","Improvements Needed","Current Provider",
-            "Current Cost","Hair Fall Since","Done Hair Transplant Before",
-            "Considering Hair Patch Since","Rides Bike Often","Interested In",
-            "System Type","Density","Budget Range","Timeline","Session Notes",
-            "Natural Hair Density","Preferred Attachment Method",
-            "Photo Top View","Photo Front View","Photo Left Side","Photo Right Side",
-            "Photo Back View","Photo Other 1","Photo Other 2","Photo Other 3",
-            "Completed By","Last Updated","Video Consultation","Consultation Source"
+            "Timestamp", "Lead ID", "Full Name", "Mobile No", "City", "Town", "Date of Birth",
+            "Source", "Consultation Type", "Existing Wearer", "Wearing Duration",
+            "Current Patch Satisfaction", "Improvements Needed", "Current Provider",
+            "Current Cost", "Hair Fall Since", "Done Hair Transplant Before",
+            "Considering Hair Patch Since", "Rides Bike Often", "Interested In",
+            "System Type", "Density", "Budget Range", "Timeline", "Session Notes",
+            "Natural Hair Density", "Preferred Attachment Method",
+            "Photo Top View", "Photo Front View", "Photo Left Side", "Photo Right Side",
+            "Photo Back View", "Photo Other 1", "Photo Other 2", "Photo Other 3",
+            "Completed By", "Last Updated", "Video Consultation", "Consultation Source"
         ];
 
         await sheets.spreadsheets.values.update({
@@ -307,9 +307,9 @@ async function saveConsultationData(formData) {
 
         let headers = data[0];
         headers = await ensureColumnsExist('PreConsultation', headers, [
-            "Photo Top View","Photo Front View","Photo Left Side","Photo Right Side",
-            "Photo Back View","Photo Other 1","Photo Other 2","Photo Other 3",
-            "Consultation Type","Video Consultation","Consultation Source"
+            "Photo Top View", "Photo Front View", "Photo Left Side", "Photo Right Side",
+            "Photo Back View", "Photo Other 1", "Photo Other 2", "Photo Other 3",
+            "Consultation Type", "Video Consultation", "Consultation Source"
         ]);
 
         const phoneColIndex = headers.indexOf('Mobile No');
@@ -327,7 +327,7 @@ async function saveConsultationData(formData) {
             ? data[rowIndex - 1][headers.indexOf('Lead ID')] || `AH${Date.now().toString().slice(-8)}`
             : `AH${Date.now().toString().slice(-8)}`;
 
-        let photoUrls = { 'Top View':'','Front View':'','Left Side':'','Right Side':'','Back View':'','Other 1':'','Other 2':'','Other 3':'' };
+        let photoUrls = { 'Top View': '', 'Front View': '', 'Left Side': '', 'Right Side': '', 'Back View': '', 'Other 1': '', 'Other 2': '', 'Other 3': '' };
         if (formData.images && formData.images.length > 0) {
             photoUrls = await googleDriveService.uploadImages(formData.images, formData.fullName || leadId, leadId);
         }
@@ -354,8 +354,14 @@ async function saveConsultationData(formData) {
             photoOther2: photoUrls['Other 2'], photoOther3: photoUrls['Other 3']
         };
 
-        return { success: true, message: 'Profile saved successfully', leadId, completeness: calculateProfileCompleteness(returnData), imageCount: formData.images?.length || 0, data: returnData };
-
+        return {
+            success: true,
+            message: 'Profile saved successfully',
+            leadId,
+            completeness: calculateProfileCompleteness(returnData),
+            imageCount: formData.images?.length || 0,
+            data: returnData
+        };
     } catch (error) {
         console.error('Error in saveConsultationData:', error);
         return { success: false, message: 'Error: ' + error.message };
@@ -424,7 +430,7 @@ async function createVideoConsultationResponsesSheet() {
             spreadsheetId: SPREADSHEET_ID,
             range: 'VideoConsultationResponses!A1',
             valueInputOption: 'USER_ENTERED',
-            requestBody: { values: [["Timestamp","Lead ID","Phone","Client Name","Response","Date"]] }
+            requestBody: { values: [["Timestamp", "Lead ID", "Phone", "Client Name", "Response", "Date"]] }
         });
 
         const ss = await sheets.spreadsheets.get({ spreadsheetId: SPREADSHEET_ID });
@@ -433,7 +439,18 @@ async function createVideoConsultationResponsesSheet() {
         await sheets.spreadsheets.batchUpdate({
             spreadsheetId: SPREADSHEET_ID,
             requestBody: {
-                requests: [{ repeatCell: { range: { sheetId, startRowIndex: 0, endRowIndex: 1 }, cell: { userEnteredFormat: { backgroundColor: { red: 0.3, green: 0.69, blue: 0.31 }, textFormat: { foregroundColor: { red: 1, green: 1, blue: 1 }, bold: true } } }, fields: 'userEnteredFormat(backgroundColor,textFormat)' } }]
+                requests: [{
+                    repeatCell: {
+                        range: { sheetId, startRowIndex: 0, endRowIndex: 1 },
+                        cell: {
+                            userEnteredFormat: {
+                                backgroundColor: { red: 0.3, green: 0.69, blue: 0.31 },
+                                textFormat: { foregroundColor: { red: 1, green: 1, blue: 1 }, bold: true }
+                            }
+                        },
+                        fields: 'userEnteredFormat(backgroundColor,textFormat)'
+                    }
+                }]
             }
         });
 
