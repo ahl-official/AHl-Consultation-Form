@@ -7,16 +7,10 @@
     <title>Hair Consultation | American Hairline</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --primary: #0ea5e9;
@@ -39,1576 +33,240 @@
             overflow-x: hidden;
         }
 
-        .background-decoration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .floating-circle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.4;
-            filter: blur(80px);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .circle-1 {
-            width: 500px;
-            height: 500px;
-            background: linear-gradient(135deg, #7dd3fc, #38bdf8);
-            top: -250px;
-            right: -150px;
-            animation-duration: 25s;
-        }
-
-        .circle-2 {
-            width: 400px;
-            height: 400px;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            bottom: -200px;
-            left: -150px;
-            animation-duration: 20s;
-            animation-delay: 2s;
-        }
-
-        .circle-3 {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, #93c5fd, #60a5fa);
-            top: 50%;
-            right: -100px;
-            animation-duration: 22s;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-
-            33% {
-                transform: translateY(-40px) translateX(30px) rotate(120deg);
-            }
-
-            66% {
-                transform: translateY(30px) translateX(-30px) rotate(240deg);
-            }
-        }
-
-        /* Mobile Header */
-        .mobile-header {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 14px 18px;
-            display: none;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        }
-
-        .mobile-header.show {
-            display: flex;
-        }
-
-        .mobile-logo-box {
-            background: var(--primary);
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            font-weight: 800;
-            font-size: 15px;
-        }
-
-        .mobile-header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mobile-header-title {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .mobile-header-right {
-            display: flex;
-            gap: 8px;
-        }
-
-        .mobile-header-btn {
-            padding: 6px 12px;
-            background: var(--bg);
-            border: none;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .mobile-header-btn.primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        /* Section */
-        .section {
-            display: none;
-        }
-
-        .section.active {
-            display: block;
-        }
-
-        /* =================== */
-        /* LANDING PAGE        */
-        /* =================== */
-        .landing-container {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 40px 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .landing-box {
-            background: rgba(255, 255, 255, 0.88);
-            backdrop-filter: blur(24px) saturate(180%);
-            border-radius: 32px;
-            box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.6) inset;
-            width: 100%;
-            max-width: 500px;
-            padding: 56px 48px;
-            animation: slideIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            text-align: center;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .landing-logo {
-            width: auto;
-            max-width: 260px;
-            height: auto;
-            margin: 0 auto 28px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .landing-logo img {
-            width: auto;
-            height: auto;
-            max-width: 100%;
-            max-height: 120px;
-            object-fit: contain;
-        }
-
-        .landing-headline {
-            font-family: 'Playfair Display', Georgia, serif;
-            font-size: 30px;
-            font-weight: 800;
-            line-height: 1.25;
-            color: var(--text-primary);
-            margin-bottom: 14px;
-            letter-spacing: -0.5px;
-        }
-
-        .landing-headline span {
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .landing-subtitle {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 36px;
-        }
-
-        .landing-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 36px;
-        }
-
-        .trust-badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 7px 14px;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .trust-badge i {
-            color: var(--primary);
-            font-size: 12px;
-        }
-
-        .steps-preview {
-            display: flex;
-            justify-content: center;
-            gap: 0;
-            margin-bottom: 36px;
-        }
-
-        .step-preview-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            flex: 1;
-            position: relative;
-        }
-
-        .step-preview-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            top: 18px;
-            left: 60%;
-            width: 80%;
-            height: 2px;
-            background: var(--border);
-        }
-
-        .step-preview-dot {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, #e0f2fe, #bfdbfe);
-            border: 2px solid #bfdbfe;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .step-preview-label {
-            font-size: 10px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 0.3px;
-            max-width: 60px;
-        }
-
-        .btn-start {
-            width: 100%;
-            padding: 20px;
-            border-radius: 18px;
-            border: none;
-            font-size: 17px;
-            font-weight: 700;
-            cursor: pointer;
-            background: linear-gradient(135deg, #0ea5e9, #2563eb);
-            color: white;
-            box-shadow: 0 12px 28px -5px rgba(37, 99, 235, 0.45);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-family: 'DM Sans', sans-serif;
-        }
-
-        .btn-start:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 18px 40px -5px rgba(37, 99, 235, 0.55);
-        }
-
-        .btn-start:active {
-            transform: scale(0.98);
-        }
-
-        .privacy-note {
-            margin-top: 20px;
-            font-size: 12px;
-            color: var(--text-secondary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .privacy-note i {
-            color: var(--success);
-        }
-
-        .support-dock {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 40px;
-            padding: 16px;
-            background: rgba(241, 245, 249, 0.6);
-            border-radius: 24px;
-        }
-
-        .dock-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            text-decoration: none;
-            color: var(--text-secondary);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            padding: 8px;
-            border-radius: 16px;
-        }
-
-        .dock-item:hover {
-            transform: translateY(-8px);
-            background: white;
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .dock-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: white;
-        }
-
-        .dock-icon.phone {
-            background: linear-gradient(135deg, #3b82f6, #2563eb);
-        }
-
-        .dock-icon.whatsapp {
-            background: linear-gradient(135deg, #22c55e, #16a34a);
-        }
-
-        .dock-icon.support {
-            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
-        }
-
-        .dock-label {
-            font-size: 11px;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-
-        /* =================== */
-        /* FORM SECTION        */
-        /* =================== */
-        .container {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            letter-spacing: -0.2px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 16px 18px;
-            border: 2px solid var(--border);
-            border-radius: 14px;
-            font-size: 16px;
-            transition: all 0.2s;
-            background: rgba(255, 255, 255, 0.9);
-            color: var(--text-primary);
-            font-family: 'DM Sans', inherit;
-            font-weight: 500;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            background: white;
-            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
-        }
-
-        .form-control::placeholder {
-            color: #94a3b8;
-        }
-
-        select.form-control {
-            cursor: pointer;
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 16px center;
-            background-color: rgba(255, 255, 255, 0.9);
-            padding-right: 40px;
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 16px;
-            border: none;
-            border-radius: 14px;
-            font-size: 17px;
-            font-weight: 700;
-            color: white;
-            background: var(--primary);
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'DM Sans', inherit;
-        }
-
-        .btn:hover:not(:disabled) {
-            background: var(--primary-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.4);
-        }
-
-        .btn:active:not(:disabled) {
-            transform: translateY(0);
-        }
-
-        .btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .btn.secondary {
-            background: #f1f5f9;
-            color: var(--text-secondary);
-        }
-
-        .btn.secondary:hover {
-            background: #e2e8f0;
-            box-shadow: none;
-            transform: none;
-        }
-
-        .step-navigation-header {
-            margin-bottom: 40px;
-        }
-
-        .step-circles-container {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .step-circle {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 16px;
-            transition: all 0.5s;
-            background: #f1f5f9;
-            color: #94a3b8;
-        }
-
-        .step-circle.active {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
-            transform: scale(1.05);
-        }
-
-        .step-circle.completed {
-            background: var(--success);
-            color: white;
-            position: relative;
-        }
-
-        .step-circle.completed::after {
-            content: '✓';
-            position: absolute;
-            font-size: 20px;
-        }
-
-        .progress-bar-container {
-            width: 100%;
-            height: 6px;
-            background: #f1f5f9;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--primary);
-            transition: width 0.7s ease;
-            width: 25%;
-        }
-
-        #stepTitle {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .form-step {
-            display: none;
-            animation: fadeInStep 0.4s ease-in-out;
-        }
-
-        .form-step.active {
-            display: block;
-        }
-
-        @keyframes fadeInStep {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .form-step h3 {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 24px;
-            color: var(--text-primary);
-        }
-
-        .form-navigation {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .form-section {
-            margin-bottom: 30px;
-        }
-
-        .form-section h4 {
-            margin: 20px 0 15px;
-            font-size: 16px;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .radio-group,
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 10px;
-        }
-
-        .radio-item,
-        .checkbox-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            background: var(--bg);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .radio-item:hover,
-        .checkbox-item:hover {
-            border-color: var(--primary);
-            background: white;
-        }
-
-        .radio-item input,
-        .checkbox-item input {
-            margin-right: 12px;
-            cursor: pointer;
-            width: 18px;
-            height: 18px;
-        }
-
-        .radio-item label,
-        .checkbox-item label {
-            cursor: pointer;
-            font-weight: 500;
-            font-size: 14px;
-            margin: 0;
-        }
-
-        /* Photo Upload */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .photo-upload-item {
-            position: relative;
-            aspect-ratio: 1;
-            border: 2px dashed var(--border);
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            background: rgba(240, 249, 255, 0.5);
-        }
-
-        .photo-upload-item:hover {
-            border-color: var(--primary);
-            background: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-        }
-
-        .photo-upload-item.has-photo {
-            border: 2px solid var(--primary);
-        }
-
-        .photo-upload-content {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 12px;
-        }
-
-        .photo-upload-icon {
-            font-size: 28px;
-            margin-bottom: 6px;
-        }
-
-        .photo-upload-label {
-            font-size: 10px;
-            font-weight: 700;
-            text-align: center;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .photo-preview {
-            position: absolute;
-            inset: 0;
-            display: none;
-        }
-
-        .photo-preview.show {
-            display: block;
-        }
-
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-remove {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 28px;
-            height: 28px;
-            background: var(--error);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            font-size: 16px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            transition: all 0.2s;
-        }
-
-        .photo-remove:hover {
-            transform: scale(1.1);
-        }
-
-        .photo-upload-item.has-photo .photo-remove {
-            display: flex;
-        }
-
-        .camera-btn {
-            position: absolute;
-            bottom: 6px;
-            left: 6px;
-            width: 28px;
-            height: 28px;
-            background: var(--primary);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            font-size: 14px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            transition: all 0.2s;
-        }
-
-        .camera-btn:hover {
-            transform: scale(1.1);
-            background: var(--primary-hover);
-        }
-
-        .photo-upload-item.has-photo .camera-btn {
-            display: none;
-        }
+        .background-decoration { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: hidden; }
+        .floating-circle { position: absolute; border-radius: 50%; opacity: 0.4; filter: blur(80px); animation: float 20s infinite ease-in-out; }
+        .circle-1 { width: 500px; height: 500px; background: linear-gradient(135deg, #7dd3fc, #38bdf8); top: -250px; right: -150px; animation-duration: 25s; }
+        .circle-2 { width: 400px; height: 400px; background: linear-gradient(135deg, #60a5fa, #3b82f6); bottom: -200px; left: -150px; animation-duration: 20s; animation-delay: 2s; }
+        .circle-3 { width: 350px; height: 350px; background: linear-gradient(135deg, #93c5fd, #60a5fa); top: 50%; right: -100px; animation-duration: 22s; animation-delay: 4s; }
+
+        @keyframes float { 0%, 100% { transform: translateY(0) translateX(0) rotate(0deg); } 33% { transform: translateY(-40px) translateX(30px) rotate(120deg); } 66% { transform: translateY(30px) translateX(-30px) rotate(240deg); } }
+
+        .mobile-header { width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); padding: 14px 18px; display: none; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+        .mobile-header.show { display: flex; }
+        .mobile-logo-box { background: var(--primary); width: 38px; height: 38px; border-radius: 10px; display: flex; justify-content: center; align-items: center; color: white; font-weight: 800; font-size: 15px; }
+        .mobile-header-left { display: flex; align-items: center; gap: 10px; }
+        .mobile-header-title { font-size: 15px; font-weight: 700; }
+        .mobile-header-right { display: flex; gap: 8px; }
+        .mobile-header-btn { padding: 6px 12px; background: var(--bg); border: none; border-radius: 8px; font-size: 12px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: 0.2s; }
+        .mobile-header-btn.primary { background: var(--primary); color: white; }
+
+        .section { display: none; }
+        .section.active { display: block; }
+
+        /* LANDING */
+        .landing-container { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px; position: relative; z-index: 1; }
+        .landing-box { background: rgba(255,255,255,0.88); backdrop-filter: blur(24px) saturate(180%); border-radius: 32px; box-shadow: 0 20px 60px -10px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,255,255,0.6) inset; width: 100%; max-width: 500px; padding: 56px 48px; animation: slideIn 0.8s cubic-bezier(0.2,0.8,0.2,1); border: 1px solid rgba(255,255,255,0.4); text-align: center; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .landing-logo { width: auto; max-width: 260px; height: auto; margin: 0 auto 28px; display: flex; justify-content: center; }
+        .landing-logo img { width: auto; height: auto; max-width: 100%; max-height: 120px; object-fit: contain; }
+        .landing-headline { font-family: 'Playfair Display', Georgia, serif; font-size: 30px; font-weight: 800; line-height: 1.25; color: var(--text-primary); margin-bottom: 14px; letter-spacing: -0.5px; }
+        .landing-headline span { background: linear-gradient(135deg, #0ea5e9, #2563eb); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        .landing-subtitle { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 36px; }
+        .landing-badges { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 36px; }
+        .trust-badge { display: flex; align-items: center; gap: 6px; padding: 7px 14px; background: var(--bg); border: 1.5px solid var(--border); border-radius: 50px; font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .trust-badge i { color: var(--primary); font-size: 12px; }
+
+        .steps-preview { display: flex; justify-content: center; gap: 0; margin-bottom: 36px; }
+        .step-preview-item { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; position: relative; }
+        .step-preview-item:not(:last-child)::after { content: ''; position: absolute; top: 18px; left: 60%; width: 80%; height: 2px; background: var(--border); }
+        .step-preview-dot { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, #e0f2fe, #bfdbfe); border: 2px solid #bfdbfe; display: flex; align-items: center; justify-content: center; font-size: 15px; position: relative; z-index: 1; }
+        .step-preview-label { font-size: 10px; font-weight: 600; color: var(--text-secondary); text-align: center; text-transform: uppercase; letter-spacing: 0.3px; max-width: 60px; }
+
+        .btn-start { width: 100%; padding: 20px; border-radius: 18px; border: none; font-size: 17px; font-weight: 700; cursor: pointer; background: linear-gradient(135deg, #0ea5e9, #2563eb); color: white; box-shadow: 0 12px 28px -5px rgba(37,99,235,0.45); transition: all 0.4s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'DM Sans', sans-serif; }
+        .btn-start:hover { transform: translateY(-3px) scale(1.01); box-shadow: 0 18px 40px -5px rgba(37,99,235,0.55); }
+        .btn-start:active { transform: scale(0.98); }
+
+        .privacy-note { margin-top: 20px; font-size: 12px; color: var(--text-secondary); display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .privacy-note i { color: var(--success); }
+
+        .support-dock { display: flex; justify-content: center; gap: 16px; margin-top: 40px; padding: 16px; background: rgba(241,245,249,0.6); border-radius: 24px; }
+        .dock-item { display: flex; flex-direction: column; align-items: center; gap: 6px; text-decoration: none; color: var(--text-secondary); transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1); padding: 8px; border-radius: 16px; }
+        .dock-item:hover { transform: translateY(-8px); background: white; box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1); }
+        .dock-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; }
+        .dock-icon.phone { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .dock-icon.whatsapp { background: linear-gradient(135deg, #22c55e, #16a34a); }
+        .dock-icon.support { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .dock-label { font-size: 11px; font-weight: 600; opacity: 0.8; }
+
+        /* FORM */
+        .container { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px; letter-spacing: -0.2px; }
+        .form-control { width: 100%; padding: 16px 18px; border: 2px solid var(--border); border-radius: 14px; font-size: 16px; transition: all 0.2s; background: rgba(255,255,255,0.9); color: var(--text-primary); font-family: 'DM Sans', inherit; font-weight: 500; }
+        .form-control:focus { border-color: var(--primary); outline: none; background: white; box-shadow: 0 0 0 4px rgba(14,165,233,0.1); }
+        .form-control::placeholder { color: #94a3b8; }
+        select.form-control { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748b' d='M6 9L1 4h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; background-color: rgba(255,255,255,0.9); padding-right: 40px; }
+        textarea.form-control { resize: vertical; min-height: 100px; }
+
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 14px; font-size: 17px; font-weight: 700; color: white; background: var(--primary); cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', inherit; }
+        .btn:hover:not(:disabled) { background: var(--primary-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(14,165,233,0.4); }
+        .btn:active:not(:disabled) { transform: translateY(0); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .btn.secondary { background: #f1f5f9; color: var(--text-secondary); }
+        .btn.secondary:hover { background: #e2e8f0; box-shadow: none; transform: none; }
+
+        .step-navigation-header { margin-bottom: 40px; }
+        .step-circles-container { display: flex; justify-content: space-between; margin-bottom: 15px; max-width: 400px; margin-left: auto; margin-right: auto; }
+        .step-circle { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; transition: all 0.5s; background: #f1f5f9; color: #94a3b8; }
+        .step-circle.active { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(14,165,233,0.3); transform: scale(1.05); }
+        .step-circle.completed { background: var(--success); color: white; position: relative; }
+        .step-circle.completed::after { content: '✓'; position: absolute; font-size: 20px; }
+        .progress-bar-container { width: 100%; height: 6px; background: #f1f5f9; border-radius: 10px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; background: var(--primary); transition: width 0.7s ease; width: 25%; }
+        #stepTitle { text-align: center; margin-top: 12px; font-size: 18px; font-weight: 700; color: var(--text-primary); }
+
+        .form-step { display: none; animation: fadeInStep 0.4s ease-in-out; }
+        .form-step.active { display: block; }
+        @keyframes fadeInStep { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .form-step h3 { font-size: 24px; font-weight: 800; margin-bottom: 24px; color: var(--text-primary); }
+
+        .form-navigation { display: flex; justify-content: space-between; align-items: center; gap: 15px; margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .form-section { margin-bottom: 30px; }
+        .form-section h4 { margin: 20px 0 15px; font-size: 16px; color: var(--primary); font-weight: 700; }
+
+        .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+        .radio-item, .checkbox-item { display: flex; align-items: center; padding: 12px 16px; background: var(--bg); border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; }
+        .radio-item:hover, .checkbox-item:hover { border-color: var(--primary); background: white; }
+        .radio-item input, .checkbox-item input { margin-right: 12px; cursor: pointer; width: 18px; height: 18px; }
+        .radio-item label, .checkbox-item label { cursor: pointer; font-weight: 500; font-size: 14px; margin: 0; }
+
+        /* Photos */
+        .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
+        .photo-upload-item { position: relative; aspect-ratio: 1; border: 2px dashed var(--border); border-radius: 16px; cursor: pointer; transition: all 0.3s ease; overflow: hidden; background: rgba(240,249,255,0.5); }
+        .photo-upload-item:hover { border-color: var(--primary); background: white; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .photo-upload-item.has-photo { border: 2px solid var(--primary); }
+        .photo-upload-content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 12px; }
+        .photo-upload-icon { font-size: 28px; margin-bottom: 6px; }
+        .photo-upload-label { font-size: 10px; font-weight: 700; text-align: center; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        .photo-preview { position: absolute; inset: 0; display: none; }
+        .photo-preview.show { display: block; }
+        .photo-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-remove { position: absolute; top: 6px; right: 6px; width: 28px; height: 28px; background: var(--error); color: white; border: none; border-radius: 50%; cursor: pointer; display: none; align-items: center; justify-content: center; z-index: 10; font-size: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); transition: all 0.2s; }
+        .photo-remove:hover { transform: scale(1.1); }
+        .photo-upload-item.has-photo .photo-remove { display: flex; }
+        .camera-btn { position: absolute; bottom: 6px; left: 6px; width: 28px; height: 28px; background: var(--primary); color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10; font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.2); transition: all 0.2s; }
+        .camera-btn:hover { transform: scale(1.1); background: var(--primary-hover); }
+        .photo-upload-item.has-photo .camera-btn { display: none; }
 
         /* Camera Modal */
-        .camera-modal {
-            display: none;
-            position: fixed;
-            z-index: 10003;
-            inset: 0;
-            background: #000;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .camera-modal.show {
-            display: flex;
-        }
-
-        .camera-preview-container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            position: relative;
-        }
-
-        #cameraVideo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        .camera-controls {
-            padding: 24px;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 30px;
-            margin-bottom: 10px;
-        }
-
-        .shutter-btn {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            background: white;
-            border: 6px solid rgba(14, 165, 233, 0.3);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0;
-        }
-
-        .shutter-btn:active {
-            transform: scale(0.9);
-        }
-
-        .camera-close-btn,
-        .camera-switch-btn {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            color: white;
-            font-size: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .camera-modal { display: none; position: fixed; z-index: 10003; inset: 0; background: #000; flex-direction: column; justify-content: space-between; align-items: center; padding: 20px; }
+        .camera-modal.show { display: flex; }
+        .camera-preview-container { width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+        #cameraVideo { width: 100%; height: 100%; object-fit: cover; border-radius: 20px; }
+        .camera-controls { padding: 24px; width: 100%; display: flex; justify-content: space-around; align-items: center; background: rgba(0,0,0,0.5); backdrop-filter: blur(10px); border-radius: 30px; margin-bottom: 10px; }
+        .shutter-btn { width: 72px; height: 72px; border-radius: 50%; background: white; border: 6px solid rgba(14,165,233,0.3); cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; padding: 0; }
+        .shutter-btn:active { transform: scale(0.9); }
+        .camera-close-btn, .camera-switch-btn { width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.2); border: none; color: white; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
         /* Portal */
-        .portal-wrapper {
-            width: 100%;
-            min-height: 100vh;
-            position: relative;
-            z-index: 1;
-        }
+        .portal-wrapper { width: 100%; min-height: 100vh; position: relative; z-index: 1; }
+        .profile-card { width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 24px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.8); margin-bottom: 18px; }
+        .profile-header { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+        .profile-avatar { width: 56px; height: 56px; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); border-radius: 14px; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px; flex-shrink: 0; }
+        .profile-info h2 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+        .profile-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+        .badge { padding: 4px 10px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px; font-size: 11px; font-weight: 600; color: var(--text-secondary); }
+        .action-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+        .action-btn { flex: 1; padding: 12px 16px; background: white; color: var(--primary); border: 1px solid var(--border); border-radius: 12px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; font-size: 13px; white-space: nowrap; font-family: 'DM Sans', inherit; }
+        .action-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
 
-        .profile-card {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 24px 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            margin-bottom: 18px;
-        }
+        .completeness-card { width: 100%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border-radius: 20px; padding: 24px 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); margin-bottom: 18px; }
+        .completeness-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .completeness-header h3 { font-size: 15px; font-weight: 700; }
+        .completeness-percentage { font-size: 32px; font-weight: 800; line-height: 1; }
+        .completeness-bar { width: 100%; height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+        .completeness-bar-fill { height: 100%; background: white; border-radius: 10px; transition: width 1s ease; }
 
-        .profile-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-        }
+        .info-card { width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 20px 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.8); margin-bottom: 18px; }
+        .info-card h4 { font-size: 11px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+        .info-item { display: flex; justify-content: space-between; padding: 12px; background: var(--bg); border-radius: 10px; margin-bottom: 8px; gap: 12px; }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-label { font-size: 12px; font-weight: 600; color: var(--text-secondary); }
+        .info-value { font-size: 13px; font-weight: 700; color: var(--text-primary); text-align: right; word-break: break-word; }
 
-        .profile-avatar {
-            width: 56px;
-            height: 56px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-
-        .profile-info h2 {
-            font-size: 18px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .profile-badges {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
-        }
-
-        .badge {
-            padding: 4px 10px;
-            background: var(--bg);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .action-buttons {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 12px 16px;
-            background: white;
-            color: var(--primary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 13px;
-            white-space: nowrap;
-            font-family: 'DM Sans', inherit;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .completeness-card {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-            border-radius: 20px;
-            padding: 24px 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            margin-bottom: 18px;
-        }
-
-        .completeness-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .completeness-header h3 {
-            font-size: 15px;
-            font-weight: 700;
-        }
-
-        .completeness-percentage {
-            font-size: 32px;
-            font-weight: 800;
-            line-height: 1;
-        }
-
-        .completeness-bar {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-
-        .completeness-bar-fill {
-            height: 100%;
-            background: white;
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-
-        .info-card {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            padding: 20px 18px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            margin-bottom: 18px;
-        }
-
-        .info-card h4 {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 14px;
-        }
-
-        .info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px;
-            background: var(--bg);
-            border-radius: 10px;
-            margin-bottom: 8px;
-            gap: 12px;
-        }
-
-        .info-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .info-label {
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-
-        .info-value {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-primary);
-            text-align: right;
-            word-break: break-word;
-        }
-
-        .photos-card {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 20px 18px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            margin-bottom: 18px;
-        }
-
-        .photos-card h4 {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .photos-display {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .photo-display-item {
-            position: relative;
-            border-radius: 14px;
-            overflow: hidden;
-            aspect-ratio: 1;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .photo-display-item:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
-
-        .photo-display-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .photo-display-label {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-            padding: 10px;
-            color: white;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .photos-card { width: 100%; background: rgba(255,255,255,0.95); border-radius: 20px; padding: 20px 18px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); border: 1px solid rgba(255,255,255,0.8); margin-bottom: 18px; }
+        .photos-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+        .photos-display { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .photo-display-item { position: relative; border-radius: 14px; overflow: hidden; aspect-ratio: 1; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; transition: all 0.3s ease; }
+        .photo-display-item:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .photo-display-item img { width: 100%; height: 100%; object-fit: cover; }
+        .photo-display-label { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 10px; color: white; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
 
         /* Loading */
-        .loading-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(8px);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loading-overlay.show {
-            display: flex;
-        }
-
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid rgba(14, 165, 233, 0.2);
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 16px;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
+        .loading-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); display: none; justify-content: center; align-items: center; z-index: 9999; }
+        .loading-overlay.show { display: flex; }
+        .spinner { width: 48px; height: 48px; border: 4px solid rgba(14,165,233,0.2); border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* Photo Modal */
-        .photo-modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.95);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .photo-modal.show {
-            display: flex;
-        }
-
-        .photo-modal-content {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 12px;
-        }
-
-        .photo-modal-close {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            color: white;
-            font-size: 36px;
-            cursor: pointer;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            transition: all 0.3s;
-        }
-
-        .photo-modal-close:hover {
-            transform: scale(1.1);
-        }
+        .photo-modal { display: none; position: fixed; z-index: 10000; inset: 0; background: rgba(0,0,0,0.95); justify-content: center; align-items: center; padding: 20px; }
+        .photo-modal.show { display: flex; }
+        .photo-modal-content { max-width: 90%; max-height: 90%; border-radius: 12px; }
+        .photo-modal-close { position: absolute; top: 20px; right: 20px; color: white; font-size: 36px; cursor: pointer; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); border-radius: 50%; transition: all 0.3s; }
+        .photo-modal-close:hover { transform: scale(1.1); }
 
         /* Alert Modal */
-        .alert-modal {
-            display: none;
-            position: fixed;
-            z-index: 10001;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .alert-modal.show {
-            display: flex;
-        }
-
-        .alert-modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .alert-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-        }
-
-        .alert-icon.success {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
-        .alert-icon.error {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-        }
-
-        .alert-icon.warning {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-        }
-
-        .alert-icon.info {
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            color: white;
-        }
-
-        .alert-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .alert-message {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .alert-button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'DM Sans', inherit;
-        }
-
-        .alert-button.primary {
-            background: var(--primary);
-            color: white;
-        }
-
-        .alert-button.success {
-            background: var(--success);
-            color: white;
-        }
-
-        .alert-button.warning {
-            background: #f59e0b;
-            color: white;
-        }
+        .alert-modal { display: none; position: fixed; z-index: 10001; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
+        .alert-modal.show { display: flex; }
+        .alert-modal-content { background: white; border-radius: 24px; padding: 32px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s cubic-bezier(0.175,0.885,0.32,1.275); }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .alert-icon { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; }
+        .alert-icon.success { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .alert-icon.error { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .alert-icon.warning { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .alert-icon.info { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; }
+        .alert-title { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: var(--text-primary); }
+        .alert-message { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; }
+        .alert-button { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', inherit; }
+        .alert-button.primary { background: var(--primary); color: white; }
+        .alert-button.success { background: var(--success); color: white; }
+        .alert-button.warning { background: #f59e0b; color: white; }
+        .alert-button.error { background: var(--error); color: white; }
 
         /* Thank You Modal */
-        .thankyou-modal {
-            display: none;
-            position: fixed;
-            z-index: 10002;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(10px);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-
-        .thankyou-modal.show {
-            display: flex;
-        }
-
-        .thankyou-modal-content {
-            background: white;
-            border-radius: 32px;
-            padding: 48px 40px;
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-            animation: celebrateIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes celebrateIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.5) rotate(-5deg);
-            }
-
-            50% {
-                transform: scale(1.05) rotate(2deg);
-            }
-
-            100% {
-                opacity: 1;
-                transform: scale(1) rotate(0deg);
-            }
-        }
-
-        .thankyou-icon {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 24px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-            color: white;
-            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.4);
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        .thankyou-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            font-weight: 900;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .thankyou-subtitle {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .thankyou-message {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-
-        .thankyou-privacy {
-            margin: 24px 0;
-            padding: 20px;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.08), rgba(16, 185, 129, 0.08));
-            border-radius: 16px;
-            border: 1.5px solid rgba(14, 165, 233, 0.2);
-        }
-
-        .thankyou-privacy p {
-            font-size: 14px;
-            color: var(--text-secondary);
-            line-height: 1.7;
-            margin: 0;
-            text-align: left;
-        }
-
-        .thankyou-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .thankyou-btn {
-            flex: 1;
-            padding: 16px;
-            border: none;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'DM Sans', inherit;
-        }
-
-        .thankyou-btn.primary {
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 6px 20px rgba(14, 165, 233, 0.3);
-        }
-
-        .thankyou-btn.primary:hover {
-            background: var(--primary-hover);
-            transform: translateY(-3px);
-        }
-
-        .thankyou-btn.secondary {
-            background: #f1f5f9;
-            color: var(--text-secondary);
-        }
-
-        .thankyou-btn.secondary:hover {
-            background: #e2e8f0;
-            transform: translateY(-2px);
-        }
+        .thankyou-modal { display: none; position: fixed; z-index: 10002; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); justify-content: center; align-items: center; padding: 20px; }
+        .thankyou-modal.show { display: flex; }
+        .thankyou-modal-content { background: white; border-radius: 32px; padding: 48px 40px; max-width: 480px; width: 100%; text-align: center; box-shadow: 0 30px 80px rgba(0,0,0,0.3); animation: celebrateIn 0.6s cubic-bezier(0.175,0.885,0.32,1.275); position: relative; overflow: hidden; }
+        @keyframes celebrateIn { 0% { opacity: 0; transform: scale(0.5) rotate(-5deg); } 50% { transform: scale(1.05) rotate(2deg); } 100% { opacity: 1; transform: scale(1) rotate(0deg); } }
+        .thankyou-icon { width: 100px; height: 100px; margin: 0 auto 24px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); display: flex; align-items: center; justify-content: center; font-size: 50px; color: white; box-shadow: 0 12px 32px rgba(14,165,233,0.4); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .thankyou-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 16px; color: var(--text-primary); }
+        .thankyou-subtitle { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 20px; }
+        .thankyou-message { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px; }
+        .thankyou-privacy { margin: 24px 0; padding: 20px; background: linear-gradient(135deg, rgba(14,165,233,0.08), rgba(16,185,129,0.08)); border-radius: 16px; border: 1.5px solid rgba(14,165,233,0.2); }
+        .thankyou-privacy p { font-size: 14px; color: var(--text-secondary); line-height: 1.7; margin: 0; text-align: left; }
+        .thankyou-actions { display: flex; gap: 12px; }
+        .thankyou-btn { flex: 1; padding: 16px; border: none; border-radius: 14px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', inherit; }
+        .thankyou-btn.primary { background: var(--primary); color: white; box-shadow: 0 6px 20px rgba(14,165,233,0.3); }
+        .thankyou-btn.primary:hover { background: var(--primary-hover); transform: translateY(-3px); }
+        .thankyou-btn.secondary { background: #f1f5f9; color: var(--text-secondary); }
+        .thankyou-btn.secondary:hover { background: #e2e8f0; transform: translateY(-2px); }
 
         /* Confirm Modal */
-        .confirm-modal {
-            display: none;
-            position: fixed;
-            z-index: 10001;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+        .confirm-modal { display: none; position: fixed; z-index: 10001; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); justify-content: center; align-items: center; padding: 20px; }
+        .confirm-modal.show { display: flex; }
+        .confirm-modal-content { background: white; border-radius: 24px; padding: 32px; max-width: 400px; width: 100%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: slideUp 0.3s cubic-bezier(0.175,0.885,0.32,1.275); }
+        .confirm-icon { width: 80px; height: 80px; margin: 0 auto 20px; border-radius: 50%; background: linear-gradient(135deg, #f59e0b, #d97706); display: flex; align-items: center; justify-content: center; font-size: 40px; color: white; }
+        .confirm-title { font-size: 22px; font-weight: 800; margin-bottom: 12px; color: var(--text-primary); }
+        .confirm-message { font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 24px; }
+        .confirm-actions { display: flex; gap: 12px; }
+        .confirm-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: 'DM Sans', inherit; }
+        .confirm-btn.danger { background: var(--error); color: white; }
+        .confirm-btn.cancel { background: #f1f5f9; color: var(--text-secondary); }
 
-        .confirm-modal.show {
-            display: flex;
-        }
-
-        .confirm-modal-content {
-            background: white;
-            border-radius: 24px;
-            padding: 32px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .confirm-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-        }
-
-        .confirm-title {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 12px;
-            color: var(--text-primary);
-        }
-
-        .confirm-message {
-            font-size: 15px;
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 24px;
-        }
-
-        .confirm-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .confirm-btn {
-            flex: 1;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
-            font-size: 15px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: 'DM Sans', inherit;
-        }
-
-        .confirm-btn.danger {
-            background: var(--error);
-            color: white;
-        }
-
-        .confirm-btn.cancel {
-            background: #f1f5f9;
-            color: var(--text-secondary);
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .landing-box {
-                padding: 40px 28px;
-            }
-
-            .landing-headline {
-                font-size: 26px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .landing-box {
-                padding: 36px 22px;
-            }
-
-            .landing-headline {
-                font-size: 22px;
-            }
-        }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .landing-box { padding: 40px 28px; } .landing-headline { font-size: 26px; } }
+        @media (max-width: 480px) { .landing-box { padding: 36px 22px; } .landing-headline { font-size: 22px; } }
     </style>
 </head>
 
 <body>
-
     <div class="background-decoration">
         <div class="floating-circle circle-1"></div>
         <div class="floating-circle circle-2"></div>
         <div class="floating-circle circle-3"></div>
     </div>
 
-    <!-- Mobile Header (shown only in form/portal) -->
     <div class="mobile-header" id="mainHeader">
         <div class="mobile-header-left">
             <div class="mobile-logo-box">AH</div>
@@ -1616,86 +274,47 @@
         </div>
         <div class="mobile-header-right">
             <button class="mobile-header-btn primary" onclick="showFormSection()"><i class="fas fa-edit"></i></button>
-            <button class="mobile-header-btn" onclick="showSection('landingSection')"><i
-                    class="fas fa-home"></i></button>
+            <button class="mobile-header-btn" onclick="showSection('landingSection')"><i class="fas fa-home"></i></button>
         </div>
     </div>
 
-    <!-- ======================== -->
-    <!-- LANDING SECTION          -->
-    <!-- ======================== -->
+    <!-- LANDING -->
     <div class="section active" id="landingSection">
         <div class="landing-container">
             <div class="landing-box">
                 <div class="landing-logo">
-                    <img src="https://lh3.googleusercontent.com/pw/AP1GczOxmV8OGtBls0XiKVkw1KnCWol6YBH03jU9TOUhSA9lLdJjfSYvFbiW8QlhWJmaZaYa71f9wV15b5wO_hx7K9WrWH5dw8H3QFO_E8AUD5Dz5LSkkr0=w2400"
-                        alt="American Hairline">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczOxmV8OGtBls0XiKVkw1KnCWol6YBH03jU9TOUhSA9lLdJjfSYvFbiW8QlhWJmaZaYa71f9wV15b5wO_hx7K9WrWH5dw8H3QFO_E8AUD5Dz5LSkkr0=w2400" alt="American Hairline">
                 </div>
-
                 <h1 class="landing-headline">Let's find your <span>perfect hair</span> solution</h1>
-                <p class="landing-subtitle">Answer a few quick questions and our experts will create a personalised
-                    consultation plan just for you — in minutes.</p>
-
+                <p class="landing-subtitle">Answer a few quick questions and our experts will create a personalised consultation plan just for you — in minutes.</p>
                 <div class="landing-badges">
                     <div class="trust-badge"><i class="fas fa-shield-alt"></i> Private & Secure</div>
                     <div class="trust-badge"><i class="fas fa-clock"></i> 5 Min Process</div>
                     <div class="trust-badge"><i class="fas fa-star"></i> Expert Review</div>
                 </div>
-
                 <div class="steps-preview">
-                    <div class="step-preview-item">
-                        <div class="step-preview-dot">📋</div>
-                        <div class="step-preview-label">Personal Info</div>
-                    </div>
-                    <div class="step-preview-item">
-                        <div class="step-preview-dot">📖</div>
-                        <div class="step-preview-label">Hair Journey</div>
-                    </div>
-                    <div class="step-preview-item">
-                        <div class="step-preview-dot">⚡</div>
-                        <div class="step-preview-label">Preferences</div>
-                    </div>
-                    <div class="step-preview-item">
-                        <div class="step-preview-dot">📸</div>
-                        <div class="step-preview-label">Photos</div>
-                    </div>
+                    <div class="step-preview-item"><div class="step-preview-dot">📋</div><div class="step-preview-label">Personal Info</div></div>
+                    <div class="step-preview-item"><div class="step-preview-dot">📖</div><div class="step-preview-label">Hair Journey</div></div>
+                    <div class="step-preview-item"><div class="step-preview-dot">⚡</div><div class="step-preview-label">Preferences</div></div>
+                    <div class="step-preview-item"><div class="step-preview-dot">📸</div><div class="step-preview-label">Photos</div></div>
                 </div>
-
                 <button class="btn-start" onclick="startConsultation()">
                     <i class="fas fa-play-circle"></i> Start My Consultation
                 </button>
-
-                <div class="privacy-note">
-                    <i class="fas fa-lock"></i> Your information is safe and never shared without your consent.
-                </div>
-
+                <div class="privacy-note"><i class="fas fa-lock"></i> Your information is safe and never shared without your consent.</div>
                 <div class="support-dock">
-                    <a href="tel:+919324999527" class="dock-item">
-                        <div class="dock-icon phone"><i class="fas fa-phone"></i></div>
-                        <span class="dock-label">Call Us</span>
-                    </a>
-                    <a href="https://wa.me/919324999527" target="_blank" class="dock-item">
-                        <div class="dock-icon whatsapp"><i class="fab fa-whatsapp"></i></div>
-                        <span class="dock-label">WhatsApp</span>
-                    </a>
-                    <a href="https://script.google.com/a/macros/americanhairline.com/s/AKfycbzuZ4O800LlTxA6fpA8G7qDf7yMZ3et6T0jZFYYrn0/dev"
-                        target="_blank" class="dock-item">
-                        <div class="dock-icon support"><i class="fas fa-headset"></i></div>
-                        <span class="dock-label">Support</span>
-                    </a>
+                    <a href="tel:+919324999527" class="dock-item"><div class="dock-icon phone"><i class="fas fa-phone"></i></div><span class="dock-label">Call Us</span></a>
+                    <a href="https://wa.me/919324999527" target="_blank" class="dock-item"><div class="dock-icon whatsapp"><i class="fab fa-whatsapp"></i></div><span class="dock-label">WhatsApp</span></a>
+                    <a href="https://script.google.com/a/macros/americanhairline.com/s/AKfycbzuZ4O800LlTxA6fpA8G7qDf7yMZ3et6T0jZFYYrn0/dev" target="_blank" class="dock-item"><div class="dock-icon support"><i class="fas fa-headset"></i></div><span class="dock-label">Support</span></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ======================== -->
-    <!-- FORM SECTION             -->
-    <!-- ======================== -->
+    <!-- FORM -->
     <div class="section" id="formSection">
         <div class="container">
-            <div
-                style="background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); border: 1px solid rgba(255,255,255,0.8);">
-
+            <div style="background:rgba(255,255,255,0.95);backdrop-filter:blur(20px);border-radius:20px;padding:30px;box-shadow:0 4px 20px rgba(0,0,0,0.05);border:1px solid rgba(255,255,255,0.8);">
                 <div class="step-navigation-header">
                     <div class="step-circles-container">
                         <div class="step-circle active" data-step="1">1</div>
@@ -1703,50 +322,32 @@
                         <div class="step-circle" data-step="3">3</div>
                         <div class="step-circle" data-step="4">4</div>
                     </div>
-                    <div class="progress-bar-container">
-                        <div class="progress-bar-fill" id="formProgressBar"></div>
-                    </div>
+                    <div class="progress-bar-container"><div class="progress-bar-fill" id="formProgressBar"></div></div>
                     <div id="stepTitle">📋 Personal Details</div>
                 </div>
 
                 <form id="consultationForm" onsubmit="return false;">
-
                     <!-- STEP 1 -->
                     <div class="form-step active" id="step1">
                         <h3>📋 Personal Details</h3>
-
                         <div class="form-group">
                             <label>Full Name *</label>
-                            <input type="text" id="fFullName" class="form-control" placeholder="Enter your full name"
-                                required>
+                            <input type="text" id="fFullName" class="form-control" placeholder="Enter your full name" required>
                         </div>
-
                         <div class="form-group">
                             <label>WhatsApp Number *</label>
-                            <input type="tel" id="fWhatsApp" class="form-control" placeholder="10-digit mobile number"
-                                maxlength="10" required>
+                            <input type="tel" id="fWhatsApp" class="form-control" placeholder="10-digit mobile number" maxlength="10" required>
                         </div>
-
                         <div class="form-row">
                             <div class="form-group">
                                 <label>City *</label>
                                 <select id="fCity" class="form-control" required>
                                     <option value="">— Select City —</option>
-                                    <option>Mumbai</option>
-                                    <option>Delhi</option>
-                                    <option>Bangalore</option>
-                                    <option>Hyderabad</option>
-                                    <option>Chennai</option>
-                                    <option>Kolkata</option>
-                                    <option>Pune</option>
-                                    <option>Ahmedabad</option>
-                                    <option>Lucknow</option>
-                                    <option>Jaipur</option>
-                                    <option>Ludhiana</option>
-                                    <option>Surat</option>
-                                    <option>Indore</option>
-                                    <option>Bhopal</option>
-                                    <option>Other</option>
+                                    <option>Mumbai</option><option>Delhi</option><option>Bangalore</option>
+                                    <option>Hyderabad</option><option>Chennai</option><option>Kolkata</option>
+                                    <option>Pune</option><option>Ahmedabad</option><option>Lucknow</option>
+                                    <option>Jaipur</option><option>Ludhiana</option><option>Surat</option>
+                                    <option>Indore</option><option>Bhopal</option><option>Other</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -1754,12 +355,10 @@
                                 <input type="text" id="fTown" class="form-control" placeholder="Locality">
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label>Date of Birth</label>
                             <input type="date" id="fDOB" class="form-control">
                         </div>
-
                         <div class="form-navigation">
                             <button type="button" class="btn secondary" style="visibility:hidden;">Back</button>
                             <button type="button" class="btn" onclick="nextStep(1)">Next →</button>
@@ -1769,119 +368,74 @@
                     <!-- STEP 2 -->
                     <div class="form-step" id="step2">
                         <h3>📖 Your Hair Journey</h3>
-
                         <div class="form-group">
                             <label>Are you an existing hair system wearer? *</label>
                             <div class="radio-group">
-                                <div class="radio-item">
-                                    <input type="radio" id="existingYes" name="existingWearer" value="Yes"
-                                        onchange="toggleWearerFields()">
-                                    <label for="existingYes">Yes, I currently wear a hair system</label>
-                                </div>
-                                <div class="radio-item">
-                                    <input type="radio" id="existingNo" name="existingWearer" value="No"
-                                        onchange="toggleWearerFields()">
-                                    <label for="existingNo">No, I'm new to hair systems</label>
-                                </div>
+                                <div class="radio-item"><input type="radio" id="existingYes" name="existingWearer" value="Yes" onchange="toggleWearerFields()"><label for="existingYes">Yes, I currently wear a hair system</label></div>
+                                <div class="radio-item"><input type="radio" id="existingNo" name="existingWearer" value="No" onchange="toggleWearerFields()"><label for="existingNo">No, I'm new to hair systems</label></div>
                             </div>
                         </div>
-
                         <div class="form-section" id="existingWearerSection" style="display:none;">
                             <h4>Current Hair System Details</h4>
                             <div class="form-group">
                                 <label>How long have you been wearing?</label>
                                 <select class="form-control" id="fWearingDuration">
                                     <option value="">— Select —</option>
-                                    <option>Less than 6 months</option>
-                                    <option>6 months - 1 year</option>
-                                    <option>1-2 years</option>
-                                    <option>2-3 years</option>
-                                    <option>3-5 years</option>
-                                    <option>5+ years</option>
+                                    <option>Less than 6 months</option><option>6 months - 1 year</option>
+                                    <option>1-2 years</option><option>2-3 years</option>
+                                    <option>3-5 years</option><option>5+ years</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Are you happy with your current patch?</label>
                                 <div class="radio-group">
-                                    <div class="radio-item"><input type="radio" id="happyYes" name="currentPatchHappy"
-                                            value="Yes, very satisfied"><label for="happyYes">Yes, very
-                                            satisfied</label></div>
-                                    <div class="radio-item"><input type="radio" id="happySomewhat"
-                                            name="currentPatchHappy" value="Somewhat satisfied"><label
-                                            for="happySomewhat">Somewhat satisfied</label></div>
-                                    <div class="radio-item"><input type="radio" id="happyNo" name="currentPatchHappy"
-                                            value="Not satisfied"><label for="happyNo">Not satisfied</label></div>
+                                    <div class="radio-item"><input type="radio" id="happyYes" name="currentPatchHappy" value="Yes, very satisfied"><label for="happyYes">Yes, very satisfied</label></div>
+                                    <div class="radio-item"><input type="radio" id="happySomewhat" name="currentPatchHappy" value="Somewhat satisfied"><label for="happySomewhat">Somewhat satisfied</label></div>
+                                    <div class="radio-item"><input type="radio" id="happyNo" name="currentPatchHappy" value="Not satisfied"><label for="happyNo">Not satisfied</label></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>What would you like to improve?</label>
                                 <div class="checkbox-group">
-                                    <div class="checkbox-item"><input type="checkbox" id="improve1"
-                                            value="More natural looking"><label for="improve1">More natural
-                                            looking</label></div>
-                                    <div class="checkbox-item"><input type="checkbox" id="improve2"
-                                            value="Better durability"><label for="improve2">Better durability</label>
-                                    </div>
-                                    <div class="checkbox-item"><input type="checkbox" id="improve3"
-                                            value="More comfortable"><label for="improve3">More comfortable</label>
-                                    </div>
-                                    <div class="checkbox-item"><input type="checkbox" id="improve4"
-                                            value="Better color match"><label for="improve4">Better color match</label>
-                                    </div>
-                                    <div class="checkbox-item"><input type="checkbox" id="improve5"
-                                            value="Easier maintenance"><label for="improve5">Easier maintenance</label>
-                                    </div>
+                                    <div class="checkbox-item"><input type="checkbox" id="improve1" value="More natural looking"><label for="improve1">More natural looking</label></div>
+                                    <div class="checkbox-item"><input type="checkbox" id="improve2" value="Better durability"><label for="improve2">Better durability</label></div>
+                                    <div class="checkbox-item"><input type="checkbox" id="improve3" value="More comfortable"><label for="improve3">More comfortable</label></div>
+                                    <div class="checkbox-item"><input type="checkbox" id="improve4" value="Better color match"><label for="improve4">Better color match</label></div>
+                                    <div class="checkbox-item"><input type="checkbox" id="improve5" value="Easier maintenance"><label for="improve5">Easier maintenance</label></div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group">
-                                    <label>Where did you get it from?</label>
-                                    <input type="text" class="form-control" id="fCurrentProvider"
-                                        placeholder="Company name, city">
-                                </div>
-                                <div class="form-group">
-                                    <label>How much did it cost?</label>
-                                    <input type="text" class="form-control" id="fCurrentCost" placeholder="₹25,000">
-                                </div>
+                                <div class="form-group"><label>Where did you get it from?</label><input type="text" class="form-control" id="fCurrentProvider" placeholder="Company name, city"></div>
+                                <div class="form-group"><label>How much did it cost?</label><input type="text" class="form-control" id="fCurrentCost" placeholder="₹25,000"></div>
                             </div>
                         </div>
-
                         <div class="form-section" id="newClientSection" style="display:none;">
                             <h4>Hair Loss History</h4>
                             <div class="form-group">
                                 <label>Hair fall since?</label>
                                 <select class="form-control" id="fHairFallSince">
                                     <option value="">— Select —</option>
-                                    <option>Less than 1 year</option>
-                                    <option>1-2 years</option>
-                                    <option>3-5 years</option>
-                                    <option>5-10 years</option>
-                                    <option>More than 10 years</option>
+                                    <option>Less than 1 year</option><option>1-2 years</option>
+                                    <option>3-5 years</option><option>5-10 years</option><option>More than 10 years</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>Done hair transplant before?</label>
                                 <div class="radio-group">
-                                    <div class="radio-item"><input type="radio" id="transplantYes" name="transplant"
-                                            value="Yes"><label for="transplantYes">Yes</label></div>
-                                    <div class="radio-item"><input type="radio" id="transplantNo" name="transplant"
-                                            value="No"><label for="transplantNo">No</label></div>
+                                    <div class="radio-item"><input type="radio" id="transplantYes" name="transplant" value="Yes"><label for="transplantYes">Yes</label></div>
+                                    <div class="radio-item"><input type="radio" id="transplantNo" name="transplant" value="No"><label for="transplantNo">No</label></div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>How long considering hair patch?</label>
                                 <select class="form-control" id="fConsidering">
                                     <option value="">— Select —</option>
-                                    <option>Just started looking</option>
-                                    <option>Few weeks</option>
-                                    <option>1-3 months</option>
-                                    <option>3-6 months</option>
-                                    <option>6+ months</option>
-                                    <option>1+ years</option>
+                                    <option>Just started looking</option><option>Few weeks</option>
+                                    <option>1-3 months</option><option>3-6 months</option>
+                                    <option>6+ months</option><option>1+ years</option>
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-navigation">
                             <button type="button" class="btn secondary" onclick="prevStep(2)">← Back</button>
                             <button type="button" class="btn" onclick="nextStep(2)">Next →</button>
@@ -1891,34 +445,26 @@
                     <!-- STEP 3 -->
                     <div class="form-step" id="step3">
                         <h3>⚡ Lifestyle & Preferences</h3>
-
                         <div class="form-section">
                             <h4>Lifestyle Information</h4>
                             <div class="form-group">
                                 <label>Do you ride a bike often?</label>
                                 <div class="radio-group">
-                                    <div class="radio-item"><input type="radio" id="bikeYes" name="rideBike"
-                                            value="Yes"><label for="bikeYes">Yes</label></div>
-                                    <div class="radio-item"><input type="radio" id="bikeNo" name="rideBike"
-                                            value="No"><label for="bikeNo">No</label></div>
-                                    <div class="radio-item"><input type="radio" id="bikeSometimes" name="rideBike"
-                                            value="Sometimes"><label for="bikeSometimes">Sometimes</label></div>
+                                    <div class="radio-item"><input type="radio" id="bikeYes" name="rideBike" value="Yes"><label for="bikeYes">Yes</label></div>
+                                    <div class="radio-item"><input type="radio" id="bikeNo" name="rideBike" value="No"><label for="bikeNo">No</label></div>
+                                    <div class="radio-item"><input type="radio" id="bikeSometimes" name="rideBike" value="Sometimes"><label for="bikeSometimes">Sometimes</label></div>
                                 </div>
                             </div>
                         </div>
-
                         <div class="form-section">
                             <h4>Your Preferences</h4>
                             <div class="form-group">
                                 <label>Interested In *</label>
                                 <select class="form-control" id="fInterested" required>
                                     <option value="">— Select —</option>
-                                    <option>Non-surgical hair replacement</option>
-                                    <option>Hair patch/system</option>
-                                    <option>Full coverage</option>
-                                    <option>Partial coverage</option>
-                                    <option>Front hairline only</option>
-                                    <option>Crown coverage</option>
+                                    <option>Non-surgical hair replacement</option><option>Hair patch/system</option>
+                                    <option>Full coverage</option><option>Partial coverage</option>
+                                    <option>Front hairline only</option><option>Crown coverage</option>
                                 </select>
                             </div>
                             <div class="form-row">
@@ -1926,20 +472,16 @@
                                     <label>System Type *</label>
                                     <select class="form-control" id="fSystemType" required>
                                         <option value="">— Select —</option>
-                                        <option>Most natural (4 months)</option>
-                                        <option>Natural (6 months)</option>
-                                        <option>Durable (12 months)</option>
-                                        <option>As per guidance</option>
+                                        <option>Most natural (4 months)</option><option>Natural (6 months)</option>
+                                        <option>Durable (12 months)</option><option>As per guidance</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Density *</label>
                                     <select class="form-control" id="fDensity" required>
                                         <option value="">— Select —</option>
-                                        <option>Light (60%)</option>
-                                        <option>Medium (80%)</option>
-                                        <option>Heavy (100%)</option>
-                                        <option>Extra Heavy (120%)</option>
+                                        <option>Light (60%)</option><option>Medium (80%)</option>
+                                        <option>Heavy (100%)</option><option>Extra Heavy (120%)</option>
                                     </select>
                                 </div>
                             </div>
@@ -1958,10 +500,8 @@
                                     <label>Timeline *</label>
                                     <select class="form-control" id="fTimeline" required>
                                         <option value="">— Select —</option>
-                                        <option>Immediately (This week)</option>
-                                        <option>Within 2 weeks</option>
-                                        <option>Within a month</option>
-                                        <option>1-3 months</option>
+                                        <option>Immediately (This week)</option><option>Within 2 weeks</option>
+                                        <option>Within a month</option><option>1-3 months</option>
                                         <option>Just exploring</option>
                                     </select>
                                 </div>
@@ -1970,15 +510,12 @@
                                 <label>How did you hear about us?</label>
                                 <select id="fSource" class="form-control">
                                     <option value="">— Select —</option>
-                                    <option value="Instagram">Instagram</option>
-                                    <option value="Facebook">Facebook</option>
-                                    <option value="Google">Google</option>
-                                    <option value="Referral">Referral</option>
+                                    <option value="Instagram">Instagram</option><option value="Facebook">Facebook</option>
+                                    <option value="Google">Google</option><option value="Referral">Referral</option>
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
                         </div>
-
                         <div class="form-navigation">
                             <button type="button" class="btn secondary" onclick="prevStep(3)">← Back</button>
                             <button type="button" class="btn" onclick="nextStep(3)">Next →</button>
@@ -1988,41 +525,27 @@
                     <!-- STEP 4 -->
                     <div class="form-step" id="step4">
                         <h3>📸 Photos & Final Notes</h3>
-
                         <div class="form-group">
                             <label>Additional Notes</label>
-                            <textarea id="fNotes" class="form-control" rows="4"
-                                placeholder="Any specific requirements or questions..."></textarea>
+                            <textarea id="fNotes" class="form-control" rows="4" placeholder="Any specific requirements or questions..."></textarea>
                         </div>
-
                         <div class="form-group">
                             <label>Photos (1 Required) *</label>
-                            <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">
-                                Please upload at least 1 photo (Top, Front, Left, and Right views are recommended) to
-                                help us analyse your hair better.
-                            </p>
+                            <p style="font-size:13px;color:var(--text-secondary);margin-bottom:12px;">Please upload at least 1 photo (Top, Front, Left, and Right views are recommended) to help us analyse your hair better.</p>
                             <div class="photo-grid" id="photoGrid"></div>
-                            <p style="font-size:13px; color:var(--text-secondary); margin-top:15px; font-style:italic;">
-                                <i class="fas fa-lightbulb" style="color:#fbbf24; margin-right:8px;"></i>
-                                <strong>Tip:</strong> Take photos in a well-lit area or natural daylight for a more
-                                accurate consultation.
-                            </p>
+                            <p style="font-size:13px;color:var(--text-secondary);margin-top:15px;font-style:italic;"><i class="fas fa-lightbulb" style="color:#fbbf24;margin-right:8px;"></i><strong>Tip:</strong> Take photos in a well-lit area or natural daylight for a more accurate consultation.</p>
                         </div>
-
                         <div class="form-navigation">
                             <button type="button" class="btn secondary" onclick="prevStep(4)">← Back</button>
                             <button type="button" class="btn" onclick="submitForm()">✨ Save & Finish</button>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- ======================== -->
-    <!-- PORTAL SECTION           -->
-    <!-- ======================== -->
+    <!-- PORTAL -->
     <div class="portal-wrapper section" id="portalSection">
         <div class="container">
             <div class="profile-card">
@@ -2030,49 +553,32 @@
                     <div class="profile-avatar"><i class="fas fa-user"></i></div>
                     <div class="profile-info">
                         <h2 id="clientName">Loading...</h2>
-                        <div class="profile-badges">
-                            <span class="badge" id="clientCity">...</span>
-                        </div>
+                        <div class="profile-badges"><span class="badge" id="clientCity">...</span></div>
                     </div>
                 </div>
                 <div class="action-buttons">
-                    <button class="action-btn" onclick="window.open('https://wa.me/919324999527','_blank')">
-                        <i class="fab fa-whatsapp"></i> Contact Support
-                    </button>
+                    <button class="action-btn" onclick="window.open('https://wa.me/919324999527','_blank')"><i class="fab fa-whatsapp"></i> Contact Support</button>
                 </div>
             </div>
-
             <div class="completeness-card" id="completenessCard">
-                <div class="completeness-header">
-                    <h3>Profile Completeness</h3>
-                    <span class="completeness-percentage" id="completenessPercentage">0%</span>
-                </div>
-                <div class="completeness-bar">
-                    <div class="completeness-bar-fill" id="completenessBarFill" style="width:0%"></div>
-                </div>
-                <p style="font-size:13px; opacity:0.9;">Complete your profile to get a personalised consultation plan.
-                </p>
-                <button class="btn" style="background:white; color:var(--primary); margin-top:16px; border:none;"
-                    onclick="showFormSection()">
-                    Complete Profile
-                </button>
+                <div class="completeness-header"><h3>Profile Completeness</h3><span class="completeness-percentage" id="completenessPercentage">0%</span></div>
+                <div class="completeness-bar"><div class="completeness-bar-fill" id="completenessBarFill" style="width:0%"></div></div>
+                <p style="font-size:13px;opacity:0.9;">Complete your profile to get a personalised consultation plan.</p>
+                <button class="btn" style="background:white;color:var(--primary);margin-top:16px;border:none;" onclick="showFormSection()">Complete Profile</button>
             </div>
-
             <div class="photos-card" id="photosCard" style="display:none;">
                 <h4><i class="fas fa-camera"></i> Your Photos</h4>
                 <div class="photos-display" id="photosDisplay"></div>
             </div>
-
             <div id="infoCardsContainer"></div>
         </div>
     </div>
 
-    <!-- Loading Overlay -->
+    <!-- Loading -->
     <div class="loading-overlay" id="loadingOverlay">
-        <div style="background:white; padding:32px; border-radius:20px; text-align:center; min-width:200px;">
+        <div style="background:white;padding:32px;border-radius:20px;text-align:center;min-width:200px;">
             <div class="spinner"></div>
-            <div style="font-size:14px; font-weight:700; color:var(--text-primary);" id="loadingText">Processing...
-            </div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-primary);" id="loadingText">Processing...</div>
         </div>
     </div>
 
@@ -2098,18 +604,13 @@
             <div class="thankyou-icon"><i class="fas fa-check-circle"></i></div>
             <h2 class="thankyou-title">Thank You! 🎉</h2>
             <h3 class="thankyou-subtitle">Profile Saved Successfully</h3>
-            <p class="thankyou-message">Your consultation profile has been created! Our team will review your
-                information and contact you shortly.</p>
+            <p class="thankyou-message">Your consultation profile has been created! Our team will review your information and contact you shortly.</p>
             <div class="thankyou-privacy">
-                <p><span style="margin-right:8px; font-size:18px;">🔒</span><strong>Your data is safe with us.</strong>
-                    We follow strict security measures to protect your privacy and never share your information without
-                    consent.</p>
+                <p><span style="margin-right:8px;font-size:18px;">🔒</span><strong>Your data is safe with us.</strong> We follow strict security measures to protect your privacy and never share your information without consent.</p>
             </div>
             <div class="thankyou-actions">
-                <button class="thankyou-btn secondary" onclick="closeThankYouEdit()"><i class="fas fa-edit"></i> Edit
-                    Profile</button>
-                <button class="thankyou-btn primary" onclick="closeThankYouDash()"><i class="fas fa-arrow-right"></i>
-                    View Dashboard</button>
+                <button class="thankyou-btn secondary" onclick="closeThankYouEdit()"><i class="fas fa-edit"></i> Edit Profile</button>
+                <button class="thankyou-btn primary" onclick="closeThankYouDash()"><i class="fas fa-arrow-right"></i> View Dashboard</button>
             </div>
         </div>
     </div>
@@ -2131,57 +632,50 @@
     <div class="camera-modal" id="cameraModal">
         <div class="camera-preview-container">
             <video id="cameraVideo" autoplay playsinline muted></video>
-            <div
-                style="position:absolute; inset:0; border:2px dashed rgba(255,255,255,0.3); border-radius:20px; pointer-events:none;">
-            </div>
+            <div style="position:absolute;inset:0;border:2px dashed rgba(255,255,255,0.3);border-radius:20px;pointer-events:none;"></div>
         </div>
         <div class="camera-controls">
             <button class="camera-close-btn" onclick="closeCamera()"><i class="fas fa-times"></i></button>
             <button class="shutter-btn" onclick="capturePhoto()">
-                <div style="width:50px; height:50px; background:#fff; border-radius:50%; border:2px solid #000;"></div>
+                <div style="width:50px;height:50px;background:#fff;border-radius:50%;border:2px solid #000;"></div>
             </button>
             <button class="camera-switch-btn" onclick="switchCamera()"><i class="fas fa-sync-alt"></i></button>
         </div>
     </div>
 
     <script>
-        // State
+        // ── State ────────────────────────────────────────────
         var currentStep = 1;
         var uploadedImages = [];
         var savedData = null;
 
-        const stepTitles = {
-            1: '📋 Personal Details',
-            2: '📖 Hair Journey',
-            3: '⚡ Preferences & Lifestyle',
-            4: '📸 Photos & Review'
-        };
+        // ── API Base: works on localhost AND Vercel ──────────
+        var API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+            ? 'http://localhost:3000'
+            : window.location.origin;
 
-        // Utilities
+        const stepTitles = { 1: '📋 Personal Details', 2: '📖 Hair Journey', 3: '⚡ Preferences & Lifestyle', 4: '📸 Photos & Review' };
+
+        // ── Utilities ────────────────────────────────────────
         function showLoading(text) { document.getElementById('loadingText').textContent = text; document.getElementById('loadingOverlay').classList.add('show'); }
         function hideLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
 
-        function showAlert(message, type = 'auto', title = null) {
-            if (type === 'auto') {
-                if (message.includes('success') || message.includes('✅')) type = 'success';
-                else if (message.includes('Error') || message.includes('❌')) type = 'error';
-                else if (message.includes('Warning') || message.includes('⚠️')) type = 'warning';
-                else type = 'info';
-            }
+        function showAlert(message, type, title) {
+            type = type || 'info';
             const icons = { success: '<i class="fas fa-check-circle"></i>', error: '<i class="fas fa-times-circle"></i>', warning: '<i class="fas fa-exclamation-triangle"></i>', info: '<i class="fas fa-info-circle"></i>' };
             const titles = { success: 'Success!', error: 'Oops!', warning: 'Attention', info: 'Notice' };
-            document.getElementById('alertIcon').className = `alert-icon ${type}`;
+            document.getElementById('alertIcon').className = 'alert-icon ' + type;
             document.getElementById('alertIcon').innerHTML = icons[type];
             document.getElementById('alertTitle').textContent = title || titles[type];
             document.getElementById('alertMessage').textContent = message.replace(/[✅❌⚠️ℹ️]/g, '').trim();
-            document.getElementById('alertButton').className = `alert-button ${type}`;
+            document.getElementById('alertButton').className = 'alert-button ' + type;
             document.getElementById('alertButton').textContent = type === 'success' ? 'Awesome!' : 'Got it!';
             document.getElementById('alertModal').classList.add('show');
         }
         function closeAlert() { document.getElementById('alertModal').classList.remove('show'); }
 
         function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
             document.getElementById(id).classList.add('active');
             document.getElementById('mainHeader').classList.toggle('show', id !== 'landingSection');
         }
@@ -2195,29 +689,20 @@
         function closeConfirm() { document.getElementById('confirmModal').classList.remove('show'); window._confirmCb = null; }
         function confirmAction() { if (window._confirmCb) window._confirmCb(); closeConfirm(); }
 
-        // Landing
-        function startConsultation() {
-            showSection('formSection');
-            goToStep(1);
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        // ── Navigation ───────────────────────────────────────
+        function startConsultation() { showSection('formSection'); goToStep(1); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        function showFormSection() { showSection('formSection'); goToStep(1); }
 
-        function showFormSection() {
-            showSection('formSection');
-            goToStep(1);
-        }
-
-        // Steps
         function goToStep(n) {
-            document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-            document.getElementById(`step${n}`).classList.add('active');
+            document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
+            document.getElementById('step' + n).classList.add('active');
             currentStep = n;
             updateStepIndicators(n);
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function updateStepIndicators(step) {
-            document.querySelectorAll('.step-circle').forEach((c, i) => {
+            document.querySelectorAll('.step-circle').forEach(function(c, i) {
                 c.classList.remove('active', 'completed');
                 if (i + 1 === step) c.classList.add('active');
                 else if (i + 1 < step) c.classList.add('completed');
@@ -2231,10 +716,10 @@
 
         function validateStep(step) {
             if (step === 1) {
-                const req = ['fFullName', 'fWhatsApp', 'fCity'];
-                let valid = true, first = null;
-                req.forEach(id => {
-                    const f = document.getElementById(id);
+                var req = ['fFullName', 'fWhatsApp', 'fCity'];
+                var valid = true, first = null;
+                req.forEach(function(id) {
+                    var f = document.getElementById(id);
                     if (!f.value.trim()) { f.style.borderColor = 'var(--error)'; valid = false; if (!first) first = f; }
                     else f.style.borderColor = 'var(--border)';
                 });
@@ -2248,10 +733,10 @@
                 }
             }
             if (step === 3) {
-                const req = ['fInterested', 'fBudget', 'fTimeline', 'fSystemType', 'fDensity'];
-                let valid = true, first = null;
-                req.forEach(id => {
-                    const f = document.getElementById(id);
+                var req = ['fInterested', 'fBudget', 'fTimeline', 'fSystemType', 'fDensity'];
+                var valid = true, first = null;
+                req.forEach(function(id) {
+                    var f = document.getElementById(id);
                     if (!f.value.trim()) { f.style.borderColor = 'var(--error)'; valid = false; if (!first) first = f; }
                     else f.style.borderColor = 'var(--border)';
                 });
@@ -2262,113 +747,110 @@
         }
 
         function toggleWearerFields() {
-            const isYes = document.querySelector('input[name="existingWearer"]:checked')?.value === 'Yes';
+            var isYes = document.querySelector('input[name="existingWearer"]:checked') && document.querySelector('input[name="existingWearer"]:checked').value === 'Yes';
             document.getElementById('existingWearerSection').style.display = isYes ? 'block' : 'none';
             document.getElementById('newClientSection').style.display = isYes ? 'none' : 'block';
         }
 
-        // Photo Upload
+        // ── Photo Upload ─────────────────────────────────────
         function initializePhotoUpload() {
-            const grid = document.getElementById('photoGrid');
-            const types = [
-                { label: 'Top View', emoji: '🔝' },
-                { label: 'Front View', emoji: '👤' },
-                { label: 'Left Side', emoji: '⬅️' },
-                { label: 'Right Side', emoji: '➡️' },
-                { label: 'Back View', emoji: '🔙' },
-                { label: 'Other', emoji: '📸' }
+            var grid = document.getElementById('photoGrid');
+            var types = [
+                { label: 'Top View', emoji: '🔝' }, { label: 'Front View', emoji: '👤' },
+                { label: 'Left Side', emoji: '⬅️' }, { label: 'Right Side', emoji: '➡️' },
+                { label: 'Back View', emoji: '🔙' }, { label: 'Other', emoji: '📸' }
             ];
             grid.innerHTML = '';
-            types.forEach(t => {
-                const item = document.createElement('div');
+            types.forEach(function(t) {
+                var item = document.createElement('div');
                 item.className = 'photo-upload-item';
                 item.setAttribute('data-view-type', t.label);
-                item.innerHTML = `
-                <input type="file" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this,'${t.label}')">
-                <div class="photo-upload-content" onclick="this.previousElementSibling.click()">
-                    <div class="photo-upload-icon">${t.emoji}</div>
-                    <div class="photo-upload-label">${t.label}</div>
-                </div>
-                <div class="photo-preview"></div>
-                <button type="button" class="camera-btn" onclick="openCamera('${t.label}')"><i class="fas fa-camera"></i></button>
-                <button type="button" class="photo-remove" onclick="removePhoto(this,'${t.label}')">×</button>
-            `;
+                item.innerHTML =
+                    '<input type="file" accept="image/*" style="display:none;" onchange="handlePhotoUpload(this,\'' + t.label + '\')">' +
+                    '<div class="photo-upload-content" onclick="this.previousElementSibling.click()">' +
+                        '<div class="photo-upload-icon">' + t.emoji + '</div>' +
+                        '<div class="photo-upload-label">' + t.label + '</div>' +
+                    '</div>' +
+                    '<div class="photo-preview"></div>' +
+                    '<button type="button" class="camera-btn" onclick="openCamera(\'' + t.label + '\')"><i class="fas fa-camera"></i></button>' +
+                    '<button type="button" class="photo-remove" onclick="removePhoto(this,\'' + t.label + '\')">×</button>';
                 grid.appendChild(item);
             });
         }
 
         function handlePhotoUpload(input, viewType) {
-            const file = input.files[0];
+            var file = input.files[0];
             if (!file) return;
-            const reader = new FileReader();
-            reader.onload = e => {
-                const item = input.closest('.photo-upload-item');
-                const preview = item.querySelector('.photo-preview');
-                preview.innerHTML = `<img src="${e.target.result}" alt="${viewType}">`;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var item = input.closest('.photo-upload-item');
+                var preview = item.querySelector('.photo-preview');
+                preview.innerHTML = '<img src="' + e.target.result + '" alt="' + viewType + '">';
                 preview.classList.add('show');
                 item.classList.add('has-photo');
-                const idx = uploadedImages.findIndex(i => i.viewType === viewType);
-                const img = { data: e.target.result, viewType, fileName: file.name };
+                var idx = uploadedImages.findIndex(function(i) { return i.viewType === viewType; });
+                var img = { data: e.target.result, viewType: viewType, fileName: file.name };
                 if (idx >= 0) uploadedImages[idx] = img; else uploadedImages.push(img);
             };
             reader.readAsDataURL(file);
         }
 
         function removePhoto(btn, viewType) {
-            const item = btn.closest('.photo-upload-item');
-            const preview = item.querySelector('.photo-preview');
+            var item = btn.closest('.photo-upload-item');
+            var preview = item.querySelector('.photo-preview');
             item.querySelector('input[type="file"]').value = '';
             preview.innerHTML = ''; preview.classList.remove('show');
             item.classList.remove('has-photo');
-            uploadedImages = uploadedImages.filter(i => i.viewType !== viewType);
+            uploadedImages = uploadedImages.filter(function(i) { return i.viewType !== viewType; });
         }
 
-        // Camera
-        let cameraStream = null, currentViewType = null, useFrontCamera = false;
+        // ── Camera ───────────────────────────────────────────
+        var cameraStream = null, currentViewType = null, useFrontCamera = false;
 
         async function openCamera(viewType) {
             currentViewType = viewType;
             try {
-                if (!navigator.mediaDevices?.getUserMedia) throw new Error('Not supported');
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('Not supported');
                 cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: useFrontCamera ? 'user' : 'environment', width: { ideal: 1280 }, height: { ideal: 720 } } });
                 document.getElementById('cameraVideo').srcObject = cameraStream;
                 document.getElementById('cameraModal').classList.add('show');
-            } catch { showAlert('Could not access camera. Please use file upload.', 'error'); }
+            } catch(e) { showAlert('Could not access camera. Please use file upload.', 'error'); }
         }
 
         function closeCamera() {
-            if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); cameraStream = null; }
+            if (cameraStream) { cameraStream.getTracks().forEach(function(t) { t.stop(); }); cameraStream = null; }
             document.getElementById('cameraVideo').srcObject = null;
             document.getElementById('cameraModal').classList.remove('show');
         }
 
-        function switchCamera() { useFrontCamera = !useFrontCamera; if (cameraStream) { cameraStream.getTracks().forEach(t => t.stop()); openCamera(currentViewType); } }
+        function switchCamera() { useFrontCamera = !useFrontCamera; if (cameraStream) { cameraStream.getTracks().forEach(function(t) { t.stop(); }); openCamera(currentViewType); } }
 
         function capturePhoto() {
-            const video = document.getElementById('cameraVideo');
-            const canvas = document.createElement('canvas');
+            var video = document.getElementById('cameraVideo');
+            var canvas = document.createElement('canvas');
             canvas.width = video.videoWidth; canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0);
-            const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
-            document.querySelectorAll('.photo-upload-item').forEach(item => {
+            var dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+            document.querySelectorAll('.photo-upload-item').forEach(function(item) {
                 if (item.getAttribute('data-view-type') === currentViewType) {
-                    const preview = item.querySelector('.photo-preview');
-                    preview.innerHTML = `<img src="${dataUrl}" alt="${currentViewType}">`;
+                    var preview = item.querySelector('.photo-preview');
+                    preview.innerHTML = '<img src="' + dataUrl + '" alt="' + currentViewType + '">';
                     preview.classList.add('show'); item.classList.add('has-photo');
-                    const idx = uploadedImages.findIndex(i => i.viewType === currentViewType);
-                    const img = { data: dataUrl, viewType: currentViewType, fileName: `camera_${Date.now()}.jpg` };
+                    var idx = uploadedImages.findIndex(function(i) { return i.viewType === currentViewType; });
+                    var img = { data: dataUrl, viewType: currentViewType, fileName: 'camera_' + Date.now() + '.jpg' };
                     if (idx >= 0) uploadedImages[idx] = img; else uploadedImages.push(img);
                 }
             });
             closeCamera();
-            showAlert(`${currentViewType} photo captured!`, 'success');
+            showAlert(currentViewType + ' photo captured!', 'success');
         }
 
-        // Submit
+        // ── Submit ───────────────────────────────────────────
         function submitForm() {
-            const required = { fFullName: 'Full Name', fWhatsApp: 'WhatsApp Number', fCity: 'City', fInterested: 'Interest', fTimeline: 'Timeline', fBudget: 'Budget', fSystemType: 'System Type', fDensity: 'Density' };
-            for (const [id] of Object.entries(required)) {
-                if (!document.getElementById(id)?.value.trim()) {
+            var requiredIds = ['fFullName', 'fWhatsApp', 'fCity', 'fInterested', 'fTimeline', 'fBudget', 'fSystemType', 'fDensity'];
+            for (var i = 0; i < requiredIds.length; i++) {
+                var el = document.getElementById(requiredIds[i]);
+                if (!el || !el.value.trim()) {
                     showAlert('Please fill all required fields before submitting', 'error', 'Missing Information');
                     return;
                 }
@@ -2385,127 +867,99 @@
                 town: document.getElementById('fTown').value,
                 dob: document.getElementById('fDOB').value,
                 source: document.getElementById('fSource').value,
-                existingWearer: document.querySelector('input[name="existingWearer"]:checked')?.value || '',
-                wearingDuration: document.getElementById('fWearingDuration')?.value || '',
-                patchHappy: document.querySelector('input[name="currentPatchHappy"]:checked')?.value || '',
-                improvementsNeeded: Array.from(document.querySelectorAll('input[id^="improve"]:checked')).map(c => c.value).join(', '),
-                currentProvider: document.getElementById('fCurrentProvider')?.value || '',
-                currentCost: document.getElementById('fCurrentCost')?.value || '',
-                hairFallSince: document.getElementById('fHairFallSince')?.value || '',
-                transplant: document.querySelector('input[name="transplant"]:checked')?.value || '',
-                considering: document.getElementById('fConsidering')?.value || '',
+                existingWearer: (document.querySelector('input[name="existingWearer"]:checked') || {}).value || '',
+                wearingDuration: document.getElementById('fWearingDuration').value || '',
+                patchHappy: (document.querySelector('input[name="currentPatchHappy"]:checked') || {}).value || '',
+                improvementsNeeded: Array.from(document.querySelectorAll('input[id^="improve"]:checked')).map(function(c) { return c.value; }).join(', '),
+                currentProvider: document.getElementById('fCurrentProvider').value || '',
+                currentCost: document.getElementById('fCurrentCost').value || '',
+                hairFallSince: document.getElementById('fHairFallSince').value || '',
+                transplant: (document.querySelector('input[name="transplant"]:checked') || {}).value || '',
+                considering: document.getElementById('fConsidering').value || '',
                 interested: document.getElementById('fInterested').value,
                 timeline: document.getElementById('fTimeline').value,
                 budget: document.getElementById('fBudget').value,
                 systemType: document.getElementById('fSystemType').value,
                 density: document.getElementById('fDensity').value,
-                bike: document.querySelector('input[name="rideBike"]:checked')?.value || '',
+                bike: (document.querySelector('input[name="rideBike"]:checked') || {}).value || '',
                 notes: document.getElementById('fNotes').value,
-                images: uploadedImages
+                images: uploadedImages.map(function(img) { return Object.assign({}, img, { view: img.viewType || 'Other' }); })
             };
 
-            // Map images: ensure each image has both 'view' and 'viewType' keys
-            savedData.images = uploadedImages.map(img => ({
-                ...img,
-                view: img.viewType || img.view || 'Other'
-            }));
-
-            // Detect correct API base (works on localhost:3000, ngrok, vercel, etc.)
-            const API_BASE = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
-                ? `${window.location.protocol}//${window.location.hostname}:3000`
-                : '';
-
             showLoading('Saving your profile...');
-            fetch(`${API_BASE}/api/save-consultation`, {
+
+            fetch(API_BASE + '/api/save-consultation', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(savedData)
             })
-                .then(res => {
-                    if (!res.ok) throw new Error(`Server error: ${res.status}`);
-                    return res.json();
-                })
-                .then(result => {
-                    hideLoading();
-                    if (result.success) {
-                        loadClientPortal(savedData);
-                        setTimeout(() => document.getElementById('thankyouModal').classList.add('show'), 400);
-                    } else {
-                        showAlert(result.message || 'Failed to save. Please try again.', 'error', 'Save Failed');
-                    }
-                })
-                .catch(err => {
-                    hideLoading();
-                    console.error('Submit error:', err);
-                    showAlert('Could not reach server. Please open via: http://localhost:3000 (not Live Server / file://).', 'error', 'Connection Error');
-                });
+            .then(function(res) {
+                if (!res.ok) throw new Error('Server error: ' + res.status);
+                return res.json();
+            })
+            .then(function(result) {
+                hideLoading();
+                if (result.success) {
+                    loadClientPortal(savedData);
+                    setTimeout(function() { document.getElementById('thankyouModal').classList.add('show'); }, 400);
+                } else {
+                    showAlert(result.message || 'Failed to save. Please try again.', 'error', 'Save Failed');
+                }
+            })
+            .catch(function(err) {
+                hideLoading();
+                console.error('Submit error:', err);
+                showAlert('Could not reach server. Please check your connection and try again.', 'error', 'Connection Error');
+            });
         }
 
         function closeThankYouEdit() { document.getElementById('thankyouModal').classList.remove('show'); showFormSection(); }
         function closeThankYouDash() { document.getElementById('thankyouModal').classList.remove('show'); }
 
-        // Portal
+        // ── Portal ───────────────────────────────────────────
         function loadClientPortal(data) {
             document.getElementById('clientName').textContent = data.fullName || 'Client';
             document.getElementById('clientCity').textContent = '📍 ' + (data.city || 'Not set');
 
-            const pct = calculateCompleteness(data);
+            var pct = calculateCompleteness(data);
             document.getElementById('completenessPercentage').textContent = pct + '%';
             document.getElementById('completenessBarFill').style.width = pct + '%';
             document.getElementById('completenessCard').style.display = pct < 100 ? 'block' : 'none';
 
-            // Photos
-            const photosDisplay = document.getElementById('photosDisplay');
+            var photosDisplay = document.getElementById('photosDisplay');
             photosDisplay.innerHTML = '';
-            let hasPhotos = false;
-            (data.images || []).forEach(img => {
+            var hasPhotos = false;
+            (data.images || []).forEach(function(img) {
                 hasPhotos = true;
-                const item = document.createElement('div');
+                var item = document.createElement('div');
                 item.className = 'photo-display-item';
-                item.onclick = () => { document.getElementById('photoModal').classList.add('show'); document.getElementById('modalImage').src = img.data; };
-                item.innerHTML = `<img src="${img.data}" alt="${img.viewType}" loading="lazy"><div class="photo-display-label">${img.viewType}</div>`;
+                item.onclick = function() { document.getElementById('photoModal').classList.add('show'); document.getElementById('modalImage').src = img.data; };
+                item.innerHTML = '<img src="' + img.data + '" alt="' + img.viewType + '" loading="lazy"><div class="photo-display-label">' + img.viewType + '</div>';
                 photosDisplay.appendChild(item);
             });
             document.getElementById('photosCard').style.display = hasPhotos ? 'block' : 'none';
 
-            // Info cards
-            const container = document.getElementById('infoCardsContainer');
+            var container = document.getElementById('infoCardsContainer');
             container.innerHTML = '';
 
-            const personal = [
-                { label: 'Name', value: data.fullName },
-                { label: 'WhatsApp', value: data.whatsapp },
-                { label: 'City', value: data.city },
-                { label: 'Area', value: data.town },
-                { label: 'DOB', value: data.dob ? formatDate(data.dob) : '' },
-                { label: 'Source', value: data.source }
-            ];
-            container.innerHTML += createInfoCard('👤 Personal Info', personal);
+            container.innerHTML += createInfoCard('👤 Personal Info', [
+                { label: 'Name', value: data.fullName }, { label: 'WhatsApp', value: data.whatsapp },
+                { label: 'City', value: data.city }, { label: 'Area', value: data.town },
+                { label: 'DOB', value: data.dob ? formatDate(data.dob) : '' }, { label: 'Source', value: data.source }
+            ]);
 
             if (data.existingWearer) {
-                const journey = data.existingWearer === 'Yes' ? [
-                    { label: 'Type', value: 'Experienced Wearer' },
-                    { label: 'Duration', value: data.wearingDuration },
-                    { label: 'Satisfaction', value: data.patchHappy },
-                    { label: 'Provider', value: data.currentProvider },
-                    { label: 'Cost', value: data.currentCost }
-                ] : [
-                    { label: 'Type', value: 'New Client' },
-                    { label: 'Hair Loss Since', value: data.hairFallSince },
-                    { label: 'Transplant', value: data.transplant },
-                    { label: 'Considering Since', value: data.considering }
-                ];
-                container.innerHTML += createInfoCard('📖 Journey', journey);
+                var journeyItems = data.existingWearer === 'Yes'
+                    ? [{ label: 'Type', value: 'Experienced Wearer' }, { label: 'Duration', value: data.wearingDuration }, { label: 'Satisfaction', value: data.patchHappy }, { label: 'Provider', value: data.currentProvider }, { label: 'Cost', value: data.currentCost }]
+                    : [{ label: 'Type', value: 'New Client' }, { label: 'Hair Loss Since', value: data.hairFallSince }, { label: 'Transplant', value: data.transplant }, { label: 'Considering Since', value: data.considering }];
+                container.innerHTML += createInfoCard('📖 Journey', journeyItems);
             }
 
             if (data.interested) {
                 container.innerHTML += createInfoCard('⚡ Preferences', [
-                    { label: 'Interest', value: data.interested },
-                    { label: 'System Type', value: data.systemType },
-                    { label: 'Density', value: data.density },
-                    { label: 'Timeline', value: data.timeline },
-                    { label: 'Budget', value: data.budget },
-                    { label: 'Bike Rider', value: data.bike }
+                    { label: 'Interest', value: data.interested }, { label: 'System Type', value: data.systemType },
+                    { label: 'Density', value: data.density }, { label: 'Timeline', value: data.timeline },
+                    { label: 'Budget', value: data.budget }, { label: 'Bike Rider', value: data.bike }
                 ]);
             }
 
@@ -2513,36 +967,32 @@
         }
 
         function calculateCompleteness(data) {
-            const fields = ['fullName', 'city', 'existingWearer', 'interested', 'systemType', 'density', 'budget', 'timeline'];
-            const filled = fields.filter(f => data[f] && data[f].trim()).length;
-            const hasPhotos = (data.images || []).length > 0 ? 1 : 0;
+            var fields = ['fullName', 'city', 'existingWearer', 'interested', 'systemType', 'density', 'budget', 'timeline'];
+            var filled = fields.filter(function(f) { return data[f] && data[f].trim(); }).length;
+            var hasPhotos = (data.images || []).length > 0 ? 1 : 0;
             return Math.round(((filled + hasPhotos) / (fields.length + 1)) * 100);
         }
 
         function createInfoCard(title, items) {
-            const rows = items.filter(i => i.value).map(i => `
-            <div class="info-item">
-                <span class="info-label">${i.label}</span>
-                <span class="info-value">${i.value}</span>
-            </div>
-        `).join('');
-            return `<div class="info-card"><h4>${title}</h4>${rows || '<p style="color:var(--text-secondary);font-size:13px;">No data</p>'}</div>`;
+            var rows = items.filter(function(i) { return i.value; }).map(function(i) {
+                return '<div class="info-item"><span class="info-label">' + i.label + '</span><span class="info-value">' + i.value + '</span></div>';
+            }).join('');
+            return '<div class="info-card"><h4>' + title + '</h4>' + (rows || '<p style="color:var(--text-secondary);font-size:13px;">No data</p>') + '</div>';
         }
 
         function formatDate(d) {
-            const date = new Date(d);
+            var date = new Date(d);
             if (isNaN(date.getTime())) return d;
-            return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}`;
+            return date.getDate() + ' ' + date.toLocaleString('default', { month: 'short' }) + ' ' + date.getFullYear();
         }
 
         function closePhotoModal() { document.getElementById('photoModal').classList.remove('show'); }
 
-        // Init
-        window.addEventListener('DOMContentLoaded', () => {
+        // ── Init ─────────────────────────────────────────────
+        window.addEventListener('DOMContentLoaded', function() {
             initializePhotoUpload();
             updateStepIndicators(1);
         });
     </script>
 </body>
-
 </html>
