@@ -6,12 +6,10 @@ dotenv.config();
 
 const app = express();
 
-// ── Middleware ──────────────────────────────────────────────
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// ── Lazy-load heavy services (catches missing .env early) ───
 let googleSheets;
 try {
     googleSheets = require('./googleSheets');
@@ -37,22 +35,18 @@ app.post('/api/save-consultation', async (req, res) => {
     }
 
     try {
-        const formData = req.body;
-        const result = await googleSheets.saveConsultationData(formData);
+        const result = await googleSheets.saveConsultationData(req.body);
         console.log('💾 Save result:', result.success ? '✅ Success' : '❌ Failed', result.message || '');
 
         if (result.success) {
-            if (process.env.GALLABOX_API_KEY && formData.whatsapp) {
+            if (process.env.GALLABOX_API_KEY && req.body.whatsapp) {
                 try {
                     const axios = require('axios');
                     await axios.post(`${process.env.GALLABOX_BASE_URL}/messages`, {
                         channelId: process.env.GALLABOX_CHANNEL_ID,
-                        to: formData.whatsapp,
+                        to: req.body.whatsapp,
                         type: 'template',
-                        template: {
-                            name: 'new_consultation_welcome',
-                            language: { code: 'en' }
-                        }
+                        template: { name: 'new_consultation_welcome', language: { code: 'en' } }
                     }, {
                         headers: {
                             'apiKey': process.env.GALLABOX_API_KEY,
@@ -75,7 +69,6 @@ app.post('/api/save-consultation', async (req, res) => {
         } else {
             return res.status(500).json({ success: false, message: result.message || 'Save failed' });
         }
-
     } catch (error) {
         console.error('❌ /api/save-consultation error:', error);
         return res.status(500).json({ success: false, message: error.message || 'Internal server error' });
@@ -119,7 +112,6 @@ app.post('/api/client-login', async (req, res) => {
     }
 });
 
-// ── Start (local dev only) ───────────────────────────────────
 if (require.main === module) {
     const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
