@@ -889,7 +889,7 @@
 
             showLoading('Saving your profile...');
 
-            fetch(API_BASE + '/api/save-consultation', {
+           fetch(API_BASE_URL + '/save-consultation', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(savedData)
