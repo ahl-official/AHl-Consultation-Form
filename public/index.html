@@ -649,28 +649,38 @@
         var uploadedImages = [];
         var savedData = null;
 
-        // ── API Base: works on localhost AND Vercel ──────────
-        const API_BASE_URL = (window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1')
-    ? 'http://localhost:3000/api'
-    : '/api';
+        // ── API Base URL (FIX: no file:// check, works on Vercel) ──
+        const API_BASE_URL = (
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1'
+        ) ? 'http://localhost:3000/api' : '/api';
 
-        const stepTitles = { 1: '📋 Personal Details', 2: '📖 Hair Journey', 3: '⚡ Preferences & Lifestyle', 4: '📸 Photos & Review' };
+        const stepTitles = {
+            1: '📋 Personal Details',
+            2: '📖 Hair Journey',
+            3: '⚡ Preferences & Lifestyle',
+            4: '📸 Photos & Review'
+        };
 
-        // ── Utilities ────────────────────────────────────────
-        function showLoading(text) { document.getElementById('loadingText').textContent = text; document.getElementById('loadingOverlay').classList.add('show'); }
-        function hideLoading() { document.getElementById('loadingOverlay').classList.remove('show'); }
+        // ── Utilities ─────────────────────────────────────────
+        function showLoading(text) {
+            document.getElementById('loadingText').textContent = text;
+            document.getElementById('loadingOverlay').classList.add('show');
+        }
+        function hideLoading() {
+            document.getElementById('loadingOverlay').classList.remove('show');
+        }
 
         function showAlert(message, type, title) {
             type = type || 'info';
-            const icons = { success: '<i class="fas fa-check-circle"></i>', error: '<i class="fas fa-times-circle"></i>', warning: '<i class="fas fa-exclamation-triangle"></i>', info: '<i class="fas fa-info-circle"></i>' };
-            const titles = { success: 'Success!', error: 'Oops!', warning: 'Attention', info: 'Notice' };
-            document.getElementById('alertIcon').className = 'alert-icon ' + type;
-            document.getElementById('alertIcon').innerHTML = icons[type];
-            document.getElementById('alertTitle').textContent = title || titles[type];
+            var icons  = { success: '<i class="fas fa-check-circle"></i>', error: '<i class="fas fa-times-circle"></i>', warning: '<i class="fas fa-exclamation-triangle"></i>', info: '<i class="fas fa-info-circle"></i>' };
+            var titles = { success: 'Success!', error: 'Oops!', warning: 'Attention', info: 'Notice' };
+            document.getElementById('alertIcon').className   = 'alert-icon ' + type;
+            document.getElementById('alertIcon').innerHTML   = icons[type];
+            document.getElementById('alertTitle').textContent   = title || titles[type];
             document.getElementById('alertMessage').textContent = message.replace(/[✅❌⚠️ℹ️]/g, '').trim();
-            document.getElementById('alertButton').className = 'alert-button ' + type;
-            document.getElementById('alertButton').textContent = type === 'success' ? 'Awesome!' : 'Got it!';
+            document.getElementById('alertButton').className    = 'alert-button ' + type;
+            document.getElementById('alertButton').textContent  = type === 'success' ? 'Awesome!' : 'Got it!';
             document.getElementById('alertModal').classList.add('show');
         }
         function closeAlert() { document.getElementById('alertModal').classList.remove('show'); }
@@ -682,7 +692,7 @@
         }
 
         function showConfirm(title, message, onConfirm) {
-            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmTitle').textContent   = title;
             document.getElementById('confirmMessage').textContent = message;
             window._confirmCb = onConfirm;
             document.getElementById('confirmModal').classList.add('show');
@@ -690,9 +700,9 @@
         function closeConfirm() { document.getElementById('confirmModal').classList.remove('show'); window._confirmCb = null; }
         function confirmAction() { if (window._confirmCb) window._confirmCb(); closeConfirm(); }
 
-        // ── Navigation ───────────────────────────────────────
+        // ── Navigation ────────────────────────────────────────
         function startConsultation() { showSection('formSection'); goToStep(1); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-        function showFormSection() { showSection('formSection'); goToStep(1); }
+        function showFormSection()   { showSection('formSection'); goToStep(1); }
 
         function goToStep(n) {
             document.querySelectorAll('.form-step').forEach(function(s) { s.classList.remove('active'); });
@@ -705,8 +715,8 @@
         function updateStepIndicators(step) {
             document.querySelectorAll('.step-circle').forEach(function(c, i) {
                 c.classList.remove('active', 'completed');
-                if (i + 1 === step) c.classList.add('active');
-                else if (i + 1 < step) c.classList.add('completed');
+                if (i + 1 === step)      c.classList.add('active');
+                else if (i + 1 < step)   c.classList.add('completed');
             });
             document.getElementById('formProgressBar').style.width = (((step - 1) / 3) * 100) + '%';
             document.getElementById('stepTitle').textContent = stepTitles[step];
@@ -748,18 +758,22 @@
         }
 
         function toggleWearerFields() {
-            var isYes = document.querySelector('input[name="existingWearer"]:checked') && document.querySelector('input[name="existingWearer"]:checked').value === 'Yes';
+            var checked = document.querySelector('input[name="existingWearer"]:checked');
+            var isYes   = checked && checked.value === 'Yes';
             document.getElementById('existingWearerSection').style.display = isYes ? 'block' : 'none';
-            document.getElementById('newClientSection').style.display = isYes ? 'none' : 'block';
+            document.getElementById('newClientSection').style.display      = isYes ? 'none'  : 'block';
         }
 
-        // ── Photo Upload ─────────────────────────────────────
+        // ── Photo Upload ──────────────────────────────────────
         function initializePhotoUpload() {
-            var grid = document.getElementById('photoGrid');
+            var grid  = document.getElementById('photoGrid');
             var types = [
-                { label: 'Top View', emoji: '🔝' }, { label: 'Front View', emoji: '👤' },
-                { label: 'Left Side', emoji: '⬅️' }, { label: 'Right Side', emoji: '➡️' },
-                { label: 'Back View', emoji: '🔙' }, { label: 'Other', emoji: '📸' }
+                { label: 'Top View',   emoji: '🔝' },
+                { label: 'Front View', emoji: '👤' },
+                { label: 'Left Side',  emoji: '⬅️' },
+                { label: 'Right Side', emoji: '➡️' },
+                { label: 'Back View',  emoji: '🔙' },
+                { label: 'Other',      emoji: '📸' }
             ];
             grid.innerHTML = '';
             types.forEach(function(t) {
@@ -784,7 +798,7 @@
             if (!file) return;
             var reader = new FileReader();
             reader.onload = function(e) {
-                var item = input.closest('.photo-upload-item');
+                var item    = input.closest('.photo-upload-item');
                 var preview = item.querySelector('.photo-preview');
                 preview.innerHTML = '<img src="' + e.target.result + '" alt="' + viewType + '">';
                 preview.classList.add('show');
@@ -797,25 +811,30 @@
         }
 
         function removePhoto(btn, viewType) {
-            var item = btn.closest('.photo-upload-item');
+            var item    = btn.closest('.photo-upload-item');
             var preview = item.querySelector('.photo-preview');
             item.querySelector('input[type="file"]').value = '';
-            preview.innerHTML = ''; preview.classList.remove('show');
+            preview.innerHTML = '';
+            preview.classList.remove('show');
             item.classList.remove('has-photo');
             uploadedImages = uploadedImages.filter(function(i) { return i.viewType !== viewType; });
         }
 
-        // ── Camera ───────────────────────────────────────────
+        // ── Camera ────────────────────────────────────────────
         var cameraStream = null, currentViewType = null, useFrontCamera = false;
 
         async function openCamera(viewType) {
             currentViewType = viewType;
             try {
                 if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('Not supported');
-                cameraStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: useFrontCamera ? 'user' : 'environment', width: { ideal: 1280 }, height: { ideal: 720 } } });
+                cameraStream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: useFrontCamera ? 'user' : 'environment', width: { ideal: 1280 }, height: { ideal: 720 } }
+                });
                 document.getElementById('cameraVideo').srcObject = cameraStream;
                 document.getElementById('cameraModal').classList.add('show');
-            } catch(e) { showAlert('Could not access camera. Please use file upload.', 'error'); }
+            } catch(e) {
+                showAlert('Could not access camera. Please use file upload instead.', 'error');
+            }
         }
 
         function closeCamera() {
@@ -824,19 +843,24 @@
             document.getElementById('cameraModal').classList.remove('show');
         }
 
-        function switchCamera() { useFrontCamera = !useFrontCamera; if (cameraStream) { cameraStream.getTracks().forEach(function(t) { t.stop(); }); openCamera(currentViewType); } }
+        function switchCamera() {
+            useFrontCamera = !useFrontCamera;
+            if (cameraStream) { cameraStream.getTracks().forEach(function(t) { t.stop(); }); openCamera(currentViewType); }
+        }
 
         function capturePhoto() {
-            var video = document.getElementById('cameraVideo');
+            var video  = document.getElementById('cameraVideo');
             var canvas = document.createElement('canvas');
-            canvas.width = video.videoWidth; canvas.height = video.videoHeight;
+            canvas.width  = video.videoWidth;
+            canvas.height = video.videoHeight;
             canvas.getContext('2d').drawImage(video, 0, 0);
             var dataUrl = canvas.toDataURL('image/jpeg', 0.8);
             document.querySelectorAll('.photo-upload-item').forEach(function(item) {
                 if (item.getAttribute('data-view-type') === currentViewType) {
                     var preview = item.querySelector('.photo-preview');
                     preview.innerHTML = '<img src="' + dataUrl + '" alt="' + currentViewType + '">';
-                    preview.classList.add('show'); item.classList.add('has-photo');
+                    preview.classList.add('show');
+                    item.classList.add('has-photo');
                     var idx = uploadedImages.findIndex(function(i) { return i.viewType === currentViewType; });
                     var img = { data: dataUrl, viewType: currentViewType, fileName: 'camera_' + Date.now() + '.jpg' };
                     if (idx >= 0) uploadedImages[idx] = img; else uploadedImages.push(img);
@@ -846,7 +870,7 @@
             showAlert(currentViewType + ' photo captured!', 'success');
         }
 
-        // ── Submit ───────────────────────────────────────────
+        // ── Submit ────────────────────────────────────────────
         function submitForm() {
             var requiredIds = ['fFullName', 'fWhatsApp', 'fCity', 'fInterested', 'fTimeline', 'fBudget', 'fSystemType', 'fDensity'];
             for (var i = 0; i < requiredIds.length; i++) {
@@ -861,38 +885,42 @@
                 return;
             }
 
+            var whatsappNum = document.getElementById('fWhatsApp').value.trim();
+
             savedData = {
-                fullName: document.getElementById('fFullName').value,
-                whatsapp: document.getElementById('fWhatsApp').value.trim(),
-                city: document.getElementById('fCity').value,
-                town: document.getElementById('fTown').value,
-                dob: document.getElementById('fDOB').value,
-                source: document.getElementById('fSource').value,
-                existingWearer: (document.querySelector('input[name="existingWearer"]:checked') || {}).value || '',
-                wearingDuration: document.getElementById('fWearingDuration').value || '',
-                patchHappy: (document.querySelector('input[name="currentPatchHappy"]:checked') || {}).value || '',
+                fullName:          document.getElementById('fFullName').value,
+                whatsapp:          whatsappNum,
+                phone:             whatsappNum,   // ← FIX: server checks for 'phone' field
+                city:              document.getElementById('fCity').value,
+                town:              document.getElementById('fTown').value,
+                dob:               document.getElementById('fDOB').value,
+                source:            document.getElementById('fSource').value,
+                existingWearer:    (document.querySelector('input[name="existingWearer"]:checked')  || {}).value || '',
+                wearingDuration:   document.getElementById('fWearingDuration').value  || '',
+                patchHappy:        (document.querySelector('input[name="currentPatchHappy"]:checked') || {}).value || '',
                 improvementsNeeded: Array.from(document.querySelectorAll('input[id^="improve"]:checked')).map(function(c) { return c.value; }).join(', '),
-                currentProvider: document.getElementById('fCurrentProvider').value || '',
-                currentCost: document.getElementById('fCurrentCost').value || '',
-                hairFallSince: document.getElementById('fHairFallSince').value || '',
-                transplant: (document.querySelector('input[name="transplant"]:checked') || {}).value || '',
-                considering: document.getElementById('fConsidering').value || '',
-                interested: document.getElementById('fInterested').value,
-                timeline: document.getElementById('fTimeline').value,
-                budget: document.getElementById('fBudget').value,
-                systemType: document.getElementById('fSystemType').value,
-                density: document.getElementById('fDensity').value,
-                bike: (document.querySelector('input[name="rideBike"]:checked') || {}).value || '',
-                notes: document.getElementById('fNotes').value,
-                images: uploadedImages.map(function(img) { return Object.assign({}, img, { view: img.viewType || 'Other' }); })
+                currentProvider:   document.getElementById('fCurrentProvider').value  || '',
+                currentCost:       document.getElementById('fCurrentCost').value      || '',
+                hairFallSince:     document.getElementById('fHairFallSince').value    || '',
+                transplant:        (document.querySelector('input[name="transplant"]:checked') || {}).value || '',
+                considering:       document.getElementById('fConsidering').value      || '',
+                interested:        document.getElementById('fInterested').value,
+                timeline:          document.getElementById('fTimeline').value,
+                budget:            document.getElementById('fBudget').value,
+                systemType:        document.getElementById('fSystemType').value,
+                density:           document.getElementById('fDensity').value,
+                bike:              (document.querySelector('input[name="rideBike"]:checked') || {}).value || '',
+                notes:             document.getElementById('fNotes').value,
+                images:            uploadedImages.map(function(img) { return Object.assign({}, img, { view: img.viewType || 'Other' }); })
             };
 
             showLoading('Saving your profile...');
 
-           fetch(API_BASE_URL + '/save-consultation', {
-                method: 'POST',
+            // ── FIX: correct variable name (API_BASE_URL) and path ──
+            fetch(API_BASE_URL + '/save-consultation', {
+                method:  'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(savedData)
+                body:    JSON.stringify(savedData)
             })
             .then(function(res) {
                 if (!res.ok) throw new Error('Server error: ' + res.status);
@@ -917,24 +945,27 @@
         function closeThankYouEdit() { document.getElementById('thankyouModal').classList.remove('show'); showFormSection(); }
         function closeThankYouDash() { document.getElementById('thankyouModal').classList.remove('show'); }
 
-        // ── Portal ───────────────────────────────────────────
+        // ── Portal ────────────────────────────────────────────
         function loadClientPortal(data) {
             document.getElementById('clientName').textContent = data.fullName || 'Client';
             document.getElementById('clientCity').textContent = '📍 ' + (data.city || 'Not set');
 
             var pct = calculateCompleteness(data);
             document.getElementById('completenessPercentage').textContent = pct + '%';
-            document.getElementById('completenessBarFill').style.width = pct + '%';
-            document.getElementById('completenessCard').style.display = pct < 100 ? 'block' : 'none';
+            document.getElementById('completenessBarFill').style.width    = pct + '%';
+            document.getElementById('completenessCard').style.display     = pct < 100 ? 'block' : 'none';
 
             var photosDisplay = document.getElementById('photosDisplay');
             photosDisplay.innerHTML = '';
             var hasPhotos = false;
             (data.images || []).forEach(function(img) {
                 hasPhotos = true;
-                var item = document.createElement('div');
+                var item  = document.createElement('div');
                 item.className = 'photo-display-item';
-                item.onclick = function() { document.getElementById('photoModal').classList.add('show'); document.getElementById('modalImage').src = img.data; };
+                item.onclick   = function() {
+                    document.getElementById('photoModal').classList.add('show');
+                    document.getElementById('modalImage').src = img.data;
+                };
                 item.innerHTML = '<img src="' + img.data + '" alt="' + img.viewType + '" loading="lazy"><div class="photo-display-label">' + img.viewType + '</div>';
                 photosDisplay.appendChild(item);
             });
@@ -944,9 +975,12 @@
             container.innerHTML = '';
 
             container.innerHTML += createInfoCard('👤 Personal Info', [
-                { label: 'Name', value: data.fullName }, { label: 'WhatsApp', value: data.whatsapp },
-                { label: 'City', value: data.city }, { label: 'Area', value: data.town },
-                { label: 'DOB', value: data.dob ? formatDate(data.dob) : '' }, { label: 'Source', value: data.source }
+                { label: 'Name',     value: data.fullName },
+                { label: 'WhatsApp', value: data.whatsapp },
+                { label: 'City',     value: data.city },
+                { label: 'Area',     value: data.town },
+                { label: 'DOB',      value: data.dob ? formatDate(data.dob) : '' },
+                { label: 'Source',   value: data.source }
             ]);
 
             if (data.existingWearer) {
@@ -958,9 +992,12 @@
 
             if (data.interested) {
                 container.innerHTML += createInfoCard('⚡ Preferences', [
-                    { label: 'Interest', value: data.interested }, { label: 'System Type', value: data.systemType },
-                    { label: 'Density', value: data.density }, { label: 'Timeline', value: data.timeline },
-                    { label: 'Budget', value: data.budget }, { label: 'Bike Rider', value: data.bike }
+                    { label: 'Interest',     value: data.interested },
+                    { label: 'System Type',  value: data.systemType },
+                    { label: 'Density',      value: data.density },
+                    { label: 'Timeline',     value: data.timeline },
+                    { label: 'Budget',       value: data.budget },
+                    { label: 'Bike Rider',   value: data.bike }
                 ]);
             }
 
@@ -968,8 +1005,8 @@
         }
 
         function calculateCompleteness(data) {
-            var fields = ['fullName', 'city', 'existingWearer', 'interested', 'systemType', 'density', 'budget', 'timeline'];
-            var filled = fields.filter(function(f) { return data[f] && data[f].trim(); }).length;
+            var fields   = ['fullName', 'city', 'existingWearer', 'interested', 'systemType', 'density', 'budget', 'timeline'];
+            var filled   = fields.filter(function(f) { return data[f] && data[f].trim(); }).length;
             var hasPhotos = (data.images || []).length > 0 ? 1 : 0;
             return Math.round(((filled + hasPhotos) / (fields.length + 1)) * 100);
         }
@@ -989,7 +1026,7 @@
 
         function closePhotoModal() { document.getElementById('photoModal').classList.remove('show'); }
 
-        // ── Init ─────────────────────────────────────────────
+        // ── Init ──────────────────────────────────────────────
         window.addEventListener('DOMContentLoaded', function() {
             initializePhotoUpload();
             updateStepIndicators(1);
