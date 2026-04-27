@@ -2,26 +2,16 @@
   "version": 2,
   "builds": [
     {
-      "src": "index.html",
-      "use": "@vercel/static"
-    },
-    {
       "src": "server.js",
-      "use": "@vercel/node"
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": ["index.html", "api/**"]
+      }
     }
   ],
   "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/health",
-      "dest": "/server.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/index.html"
-    }
+    { "src": "/api/(.*)", "dest": "/server.js" },
+    { "src": "/health",   "dest": "/server.js" },
+    { "src": "/(.*)",     "dest": "/server.js" }
   ]
 }
